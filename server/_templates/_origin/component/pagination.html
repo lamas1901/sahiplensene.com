@@ -1,0 +1,23 @@
+{% if objects.paginator.num_pages != 1 %}
+   <div class="pagination-widget">
+     <div class="site-pagination">
+        {% if objects.has_previous %}
+           <a href="?{{get_params_string}}page={{objects.previous_page_number}}" class="single-pagination">&lt;</a>
+        {% endif %}
+        {% if objects.number == objects.paginator.num_pages %}
+           <a href="?{{get_params_string}}page=1" class="single-pagination">1</a>
+           ... 
+        {% endif %}
+        {% if objects.number %}
+           <a href="#" class="single-pagination active">{{ objects.number }}</a>
+        {% endif %}
+        {% if objects.number != objects.paginator.num_pages %}
+           ... 
+           <a href="?{{get_params_string}}page={{objects.paginator.num_pages}}" class="single-pagination">{{objects.paginator.num_pages}}</a>
+        {% endif %}
+        {% if objects.has_next %}
+           <a href="?{{get_params_string}}page={{objects.next_page_number}}" class="single-pagination">&gt;</a>
+        {% endif %}
+     </div>
+   </div>
+{% endif %}

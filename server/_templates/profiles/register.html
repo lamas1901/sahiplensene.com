@@ -1,0 +1,64 @@
+{% extends '../_origin/base.html' %}
+{% block title %}
+   - Giriş yap & Kayıt ol
+{% endblock %}
+{% block content %}
+   <main class="page-section pb--10 pt--50">
+      <div class="container">
+         <div class="row">
+            <div class="mx-auto col-sm-12 col-md-12 col-lg-6 col-xs-12">
+               <form method="POST">
+                  {% csrf_token %}
+                  <h4 class="login-title">Kayıt ol</h4>
+                  {% if form.errors %}
+                     <div class="alert alert-danger alert-dismissible" role="alert">
+                         <div id="form_errors">
+                             {% for key, value in form.errors.items %}
+                                 <strong>{{ value }}</strong>
+                             {% endfor %}
+                         </div>
+                     </div>
+                  {% endif %}
+                  <div class="login-form">
+                     <div class="row">
+                        <div class="col-md-12 col-12 mb--20">
+                           <label>Kullanıcı Adı</label>
+                           {{ form_user.username }}
+                        </div>
+                        <div class="row mb--20">
+                           <div class="col-md-6">
+                              <label>Adınız</label>
+                              {{ form_user.first_name }}                           
+                           </div>
+                           <div class="col-md-6">
+                              <label>Soyadınız</label>
+                              {{ form_user.last_name }}
+                           </div>
+                        </div>
+                        <div class="col-12 mb--20">
+                           <label>Parola</label>
+                           {{ form_user.password1 }}
+                        </div>
+                        <div class="col-12 mb--20">
+                           <label>Parola tekrar</label>
+                           {{ form_user.password2 }}
+                        </div>
+                        <div class="col-md-12">
+                           <div>
+                              <button class="btn btn-black w-100 mb-3" type="submit">Kayıt ol</button>
+                              <div>Diğer giriş seçenekleri</div>
+                              <div class="d-flex" style="gap: .5em">
+                                 <a href="#" style="background:#DB4437" class="btn text-white w-auto col-md-6"><i class="fab fa-google"></i></a>
+                                 <a href="#" style="background: #3B5998" class="btn text-white w-auto col-md-6"><i class="fab fa-facebook"></i></a>
+                              </div>
+                           </div>
+                           <p><a href="/profile/password-forgot" class="pass-lost mt-3">Parolamı ututtum</a></p>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </main>
+{% endblock %}

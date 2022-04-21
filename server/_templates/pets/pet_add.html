@@ -1,0 +1,131 @@
+{% extends '../_origin/base.html' %}  
+{% load static %}
+{% block content %}
+   <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+      <div class="container">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+         </ol>
+      </div>
+   </nav>
+   <!-- Product Details Block -->
+   <main class="product-details-section">
+      <div class="container">
+         <div class="pm-product-details">
+            <div class="row">
+               <!-- Blog Details Image Block -->
+               <div class="col-lg-6">
+                  <div class="image-block border h-100 p-5">
+                     <p>Resim:</p>
+                     <!-- Zoomable IMage -->
+                     <img id="frame" src="{{pet.photo.url}}" alt=""/>
+                  </div>
+               </div>
+               <form method="POST" class="col-lg-6 mt-5 mt-md-0" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div>
+                     <div >
+                        {% if form.errors %}
+                           <div class="alert alert-danger alert-dismissible" role="alert">
+                              <div id="form_errors">
+                                 {% for key, value in form.errors.items %}
+                                    <strong>{{ value }}</strong>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        {% endif %}
+                        {% for message in messages %}
+                           <div class="alert alert-success">
+                              <strong>{{message}}</strong>
+                           </div>
+                        {% endfor %}
+                        <div class="row mb-4">
+                           <div class="col-md-6">
+                              <label>Başlık *</label>
+                              {{ form.name }}
+                           </div>
+                           <div class="col-md-6">
+                              <label>Fiyat (Bedava ise 0 giriniz) *</label>
+                              <div class="input-group">
+                                 {{ form.price }}
+                                 <span class="input-group-text">₺</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mb-4">
+                           <div class="col-md-6">
+                              <label>Yaş *</label>
+                              <div class="input-group">
+                                 {{ form.age }}
+                                 <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <label>Boy *</label>
+                              <div class="input-group">
+                                 {{ form.height }}
+                                 <span class="input-group-text">sm</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mb-4">
+                           <div class="col-md-6">
+                              <label>Tür *</label>
+                              {{ form.animal_type }}
+                           </div>
+                           <div class="col-md-6">
+                              <label>Irk *</label>
+                              {{ form.breed }}
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <label>Renk *</label>   
+                              <div class="input-group">
+                                 {{ form.color }}
+                                 <span class="input-group-text"><i class="fas fa-fill"></i></span>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <label>İl *</label>
+                              <div class="input-group mb-3">
+                                 {{ form.city }}
+                                 <label class="input-group-text"><i class="fas fa-map-marker-alt"></i></label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mb-4">
+                           <div class="col-md-6">
+                              <label>Cins *</label>   
+                              <div class="input-group">
+                                 {{ form.sex }}
+                                 <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <label>Resim *</label>   
+                              <div class="input-group">
+                                 {{ form.photo }}
+                                 <span class="input-group-text"><i class="fas fa-image"></i></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="mb-3">
+                           <label>Açıklama *</label>
+                           {{ form.description }}
+                        </div>
+                        <input class="btn btn--primary" type="submit" value="Yayınla">
+                     </div>                     
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </main>
+   <script>
+      function preview() {
+          frame.src = URL.createObjectURL(event.target.files[0]);
+      }
+   </script>
+{% endblock %}

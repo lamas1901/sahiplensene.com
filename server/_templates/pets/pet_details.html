@@ -1,0 +1,237 @@
+{% extends '../_origin/base.html' %}  
+{% load static %}
+{% load utils %}
+{% block content %}
+   <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+      <div class="container">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+         </ol>
+      </div>
+   </nav>
+   <!-- Product Details Block -->
+   <main class="product-details-section">
+      <div class="container">
+         <div class="pm-product-details">
+            <div class="row">
+               <!-- Blog Details Image Block -->
+               <div class="col-md-6" style="position: relative;">
+                  <div>
+                     <img 
+                        style="height: 400px ;object-fit:cover; width: 100% ;" 
+                        src="{{pet.photo.url}}" 
+                        alt="pet image"/>
+                  </div>
+               </div>
+               <div class="col-md-6 mt-5 mt-md-0">
+                  <div class="description-block">
+                     <div class="header-block">
+                        <h3 style="font-size: 3em">{{ pet.name }}</h3>
+                     </div>
+                     {% if request.user == pet.owner %}
+                        <a href="{% url 'pets:edit_pet' pet.id %}" class="btn btn-info text-white">Düzenle</a>
+                     {% endif %}
+                     <!-- Price -->
+                     <p class="price" style="font-size:4em">
+                        {% if pet.price %}
+                           {{pet.price}}₺
+                        {% else %}
+                           BEDAVA
+                        {% endif %}
+                     </p>
+                     <hr>
+                     <div class="product-meta mt--30">
+                        <p><i class="fas fa-user"></i>&nbsp;&nbsp;Sahip adı: <span class="single-meta"> {{pet.owner.first_name}} {{ pet.owner.last_name }}</span> 
+                        </p>
+                     </div>
+                     <!-- Amount and Add to cart -->
+                     <div class="row">
+                        <a 
+                           class="m-1 col-6 d-block btn btn-rounded btn--primary text-white" 
+                           href='https://wa.me/{{ pet.owner.profile.phone }}?text=Merhaba%20"{{pet.name}}"%20ilanı%20ile%20ilgili%20yazıyorum'>
+                           <i class="fab fa-whatsapp-square"></i>
+                           &nbsp;&nbsp;Whatsapp
+                        </a>
+                        <a class="m-1 col-6 d-block btn btn-rounded btn--info text-white" href="tel:{{pet.owner.profile.phone}}">
+                           <i class="fas fa-phone"></i>&nbsp;&nbsp;Hattan ara
+                        </a>
+                     </div>
+                     <!-- Products Tag & Category Meta -->
+                     <div class="product-meta mt--30">
+                        <p><i class="fas fa-dog"></i>&nbsp;&nbsp;Tür: &nbsp;&nbsp;<span class="single-meta">{% get_pet_type pet.animal_type %}</span> 
+                        </p>
+                        <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk: &nbsp;&nbsp;<span class="single-meta">{{pet.breed}}</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Şehir: &nbsp;&nbsp;<span class="single-meta">{% get_city pet.city %}</span></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <section class="review-section pt--60">
+         <h2 class="sr-only d-none">Product Review</h2>
+         <div class="container">
+            <div class="product-details-tab">
+               <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Özellikler</a>
+                  </li>
+               </ul>
+               <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <table class="table" style="width: 100%;">
+                              <tr>
+                                 <td><b>Tür</b></td>
+                                 <td>{% get_pet_type pet.animal_type %}</td>
+                              </tr>
+                              <tr>
+                                 <td><b>Irk</b></td>
+                                 <td>{{pet.breed}}</td>
+                              </tr>
+                              <tr>
+                                 <td><b>Yaş</b></td>
+                                 <td>{{pet.age}}</td>
+                              </tr>
+                              <tr>
+                                 <td><b>Renk</b></td>
+                                 <td>{{pet.color}}</td>
+                              </tr>
+                              <tr>
+                                 <td><b>Boy</b></td>
+                                 <td>{{pet.height}}</td>
+                              </tr>
+                              <tr>
+                                 <td><b>Cins</b></td>
+                                 <td>
+                                    {% if pet.sex == 'male' %}
+                                       Erkek
+                                    {% else %}
+                                       Dişi
+                                    {% endif %}
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div class="col-sm-6">
+                           <h4>Açıklama:</h4>
+                           <br>
+                           <p>{{pet.description}}</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section>
+         <!-- Slider bLock 4 -->
+         {% get_pets_by_type pet.animal_type pet.id as other_pets %}
+         {% if other_pets %}
+         <div class="pt--60">
+            <div class="container">
+               <div class="block-title">
+                  <h2>Bu türden diğer hayvanlar…</h2>
+               </div>
+               <div class="petmark-slick-slider border normal-slider" data-slick-setting='{
+                  "autoplay": true,
+                  "autoplaySpeed": 3000,
+                  "slidesToShow": 5,
+                  "arrows": true
+                  }'
+                  data-slick-responsive='[
+                  {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                  {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
+                  ]'>
+                  {% for pet in other_pets %}
+                     <div class="single-slide">
+                        <div class="pm-product">
+                           <div class="image">
+                              <a href="product-details.html"><img style="height: 200px ;width:100%; object-fit: cover; border-radius: 0.2em" src="{{ pet.photo.url }}" alt=""></a>
+                              {% if pet.advert_type != 'normal' %}
+                                 <span 
+                                    class="onsale-badge" 
+                                    style="background: {% get_advert_level_color pet.type %} !important">
+                                    {% get_advert_level pet.advert_type %}
+                                 </span>
+                              {% endif %}
+                           </div>
+                           <div class="content">
+                              <h3>{{ pet.name }}</h3>
+                              <div class="price text-red">
+                                 <span>
+                                    {% if pet.price %}
+                                       {{ pet.price }}
+                                    {% else %}
+                                       BEDAVA
+                                    {% endif %}
+                                 </span>
+                              </div>
+                              <div class="btn-block">
+                                 <a href="cart.html" class="btn btn-outlined btn-rounded">İNCELE</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+         {% endif %}
+         {% get_posts_for_pet_type pet.animal_type as posts %}
+         {% if posts %}
+            <div class="pt--50">
+               <div class="container">
+                  <div class="block-title">
+                     <h2>İLGİLİ HABERLER...</h2>
+                  </div>
+                  <div class="petmark-slick-slider border normal-slider blog-slider"
+                     data-slick-setting='{
+                     "autoplay": true,
+                     "autoplaySpeed": 3000,
+                     "slidesToShow": 2,
+                     "arrows": true
+                     }'
+                     data-slick-responsive='[
+                     {"breakpoint":991, "settings": {"slidesToShow": 2} },
+                     {"breakpoint":768, "settings": {"slidesToShow": 1} }
+                     ]'>
+                     {% for post in posts %}
+                        <div class="single-slide">
+                           <div class="blog-post card-style-list--2">
+                              <div class="row">
+                                 <div class="col-lg-6">
+                                    <a href="blog-details.html" class="image overflow-image">
+                                    <img src="{{ post.image.url }}" style="height: 200px; width: 100%; object-fit: cover;border-radius: 0.2em" alt="">
+                                    </a>
+                                 </div>
+                                 <div class="col-lg-6 mt-4 mt-lg-0">
+                                    <div class="blog-content">
+                                       <header class="mb-0">
+                                          <h2 class="blog-title" style="font-size: 2em">{{ post.title }}</h2>
+                                       </header>
+                                       <div>
+                                          <p>
+                                             {{ post.excerpt }}
+                                          </p>
+                                       </div>
+                                       <footer class="blog-post-footer mt-0">
+                                          <div class="blog-btn">
+                                             <a href="{{ post.get_absolute_url }}">Oku</a>
+                                          </div>
+                                       </footer>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+      </section>
+   </main>
+{% endblock %}
