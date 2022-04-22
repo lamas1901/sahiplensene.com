@@ -57,7 +57,7 @@ def dashboard(request):
 
 	# применить фильтр сортировки
 	if request.GET.get('keyword'):
-		pets = pets.filter(name__lower__startswith=request.GET['keyword'])
+		pets = pets.filter(name__icontains=request.GET['keyword'])
 		filter_values['keyword'] = request.GET['keyword']
 
 	# перебор простых фильтров

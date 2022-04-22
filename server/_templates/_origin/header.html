@@ -42,6 +42,7 @@
                      <input type="text" name="keyword" placeholder="Evil hayvanını bul...">
                      <div class="search-form__group search-form__group--select">
                         <select name="city" id="searchCategory" class="search-form__select nice-select">
+                           <option value="all">Hepsi</option> 
                            {% get_cities as cities %}
                            {% for city in cities %}
                               <option value="{{city.0}}">{{city.1}}</option>                              

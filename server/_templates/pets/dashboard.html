@@ -30,7 +30,16 @@
 	                     <div class="sorting-selection">
 	                        <div class="row align-items-center ps-md-0 pe-md-0 g-0">
 	                           <div style="text-align: right;">
-                              	52'den 1–20 sonuç
+	                           	{% if pets %}
+		                           	{% define 8 as last %}
+		                           	{% if pets.paginator.num_pages|add:last > pets.paginator.num_pages %}
+		                           		{% define pets.paginator.num_pages|add:-1 as last %}
+		                           	{% endif %}
+	                              	{{ pets.paginator.num_pages }}'den {{ pets.number }}–{{ pets.number|add:last }}
+	                              {% else %}
+	                              	0
+	                              {% endif %}
+                              	sonuç
 	                           </div>
 	                        </div>
 	                     </div>
@@ -46,13 +55,13 @@
 				                     <img 
 				                     	style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" 
 				                     	src="{{pet.photo.url}}" alt="">
-				                     {% if pet.advert_type != 'normal' %}
-											   <span 
-											      class="onsale-badge" 
-											      style="background: {% get_advert_level_color pet.type %} !important">
-											      {% get_advert_level pet.type %}
-											   </span>
-											{% endif %}
+					                     {% if pet.advert_type != 'normal' %}
+										   <span 
+										      class="onsale-badge" 
+										      style="background: {% get_advert_level_color pet.type %} !important">
+										      {% get_advert_level pet.type %}
+										   </span>
+										{% endif %}
 			                     </a>
 			                     <div class="content">
 			                        <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
@@ -98,6 +107,11 @@
 		            <h2 class="sidebar-title">Arama Filtreleri</h2>
                   <div class="d-block">
                   	<div class="single-sidebar my-3">
+                  		<div class="my-3">
+	                     	{% get_cities as cities %}
+		                     <div>Anahtar kelime:</div>
+		                     <input type="text" name="keyword" class="form-control" value="{{filter_values.keyword}}"/>
+	                  	</div>
 		                  <div>Boy (sm)</div>
 		                  <div class="range-slider pt--10">
 		                     <div 
@@ -135,8 +149,8 @@
                      	{% get_cities as cities %}
 	                     <div>İl:</div>
 	                     <select id="input-sort" name="city" class="form-control d-block">
+                     		<option value="all">Hepsi</option>
 	                     	{% for city in cities %}
-	                     		<option value="all">Hepsi</option>
 		                        <option value="{{city.0}}" {% if city.0 == filter_values.city %}selected {% endif %}>{{city.1}}</option>
 	                     	{% endfor %}
 	                     </select>

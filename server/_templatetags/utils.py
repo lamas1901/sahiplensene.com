@@ -17,6 +17,10 @@ register = template.Library()
 def makrdown_format(text):
 	return mark_safe(markdown.markdown(text))
 
+@register.simple_tag
+def define(val=None):
+  return val
+
 # ADVERT_HIERARCHY 
 
 @register.simple_tag
@@ -33,11 +37,19 @@ def get_advert_level_color(slug):
 
 @register.simple_tag
 def get_pet_types():
-	return PetType.objects.all()
+	pet_types = PetType.objects.all()
+	if pet_types:
+		return PetType.objects.all()
+	else:
+		return []
 
 @register.simple_tag
 def get_pet_type(slug):
-	return PetType.objects.get(slug=slug).name
+	pet_type = PetType.objects.filter(slug=slug)
+	if pet_type:
+		return PetType.objects.get(slug=slug)[0].name
+	else:
+		return None
 
 @register.simple_tag
 def get_pets_by_type(type,exclude=0,count=5):

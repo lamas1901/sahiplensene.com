@@ -11,9 +11,13 @@ class Post(models.Model):
 		('draft','Draft'),
 		('published','Published')
 	)
+	
 	try:
 		ANIMAL_CHOICES = tuple((pet_type.slug,pet_type.name) for pet_type in PetType.objects.all())
 	except:
+		ANIMAL_CHOICES = ()
+
+	if not len(ANIMAL_CHOICES):
 		ANIMAL_CHOICES = consts.DEFAULT_ANIMAL_TYPES
 		
 	title = models.CharField(max_length=50)
