@@ -40,9 +40,9 @@
                                  {% for pet in mypets %}
                                     <!-- Product Row -->
                                     <tr>
-                                       <td class="pro-remove"><a href="/mypets_delete/{{ pet.id }}"><i class="far fa-trash-alt"></i></a></td>
+                                       <td class="pro-remove"><a href="{% url 'pets:pet-delete' pet.id %}"><i class="far fa-trash-alt"></i></a></td>
                                        <td class="pro-remove">
-                                          <a href="{% url 'pets:edit_pet' pet.id %}">
+                                          <a href="{% url 'pets:pet-edit' pet.id %}">
                                              Düzenle
                                           </a>
                                        </td>
@@ -58,7 +58,7 @@
                         <h3 class="mb-5">Şuanda aktif ilanınız bulunmuyor</h3>
                      {% endif %}
                      <div>
-                        <a href="{% url 'pets:add_pet' %}" class="d-block mt-3 btn btn--primary">
+                        <a href="{% url 'pets:pet-add' %}" class="d-block mt-3 btn btn--primary">
                            İlan ver
                         </a>
                      </div>

@@ -1,0 +1,10 @@
+<form method='POST'>
+	{% csrf_token %}
+	{% for error in form.errors %}
+		{{ error }}
+	{% endfor %}
+	{{ form.username }}
+	{{ form.password1 }}
+	{{ form.password2 }}
+	<button type='submit'>Submit</button>
+</form>

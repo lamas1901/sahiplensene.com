@@ -38,25 +38,27 @@
                </div>
                <!-- Category With Search -->
                <div class="col-lg-5 col-md-7 order-3 order-md-2">
-                  <form class="category-widget">
-                     <input type="text" name="search" placeholder="Evil hayvanını bul...">
+                  <form class="category-widget" action="{% url 'pets:dashboard' %}">
+                     <input type="text" name="keyword" placeholder="Evil hayvanını bul...">
                      <div class="search-form__group search-form__group--select">
-                        <select name="category " id="searchCategory" class="search-form__select nice-select">
+                        <select name="city" id="searchCategory" class="search-form__select nice-select">
                            {% get_cities as cities %}
                            {% for city in cities %}
                               <option value="{{city.0}}">{{city.1}}</option>                              
                            {% endfor %}
                         </select>
                      </div>
-                     <button class="search-submit"><i class="fas fa-search"></i></button>
+                     <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
                   </form>
                </div>
                <!-- Call Login & Track of Order -->
                <div class="col-lg-4 col-md-5 col-sm-8 order-2 order-md-3">
                   <div class="header-widget-2 text-center text-sm-end ">
                      <div class="call-widget">
-                        <p>Bize Ulaşın: <i class="icon ion-ios-telephone"></i><span class="font-weight-mid">+91-012
-                           345 678</span>
+                        <p>Bize Ulaşın: <i class="icon ion-ios-telephone"></i>
+                           <span class="font-weight-mid">
+                              <a href="tel:{% get_const 'PHONE_VALUE' %}">{% get_const 'PHONE_SHOW' %}</a>
+                           </span>
                         </p>
                      </div>
                      <ul class="header-links">
@@ -123,19 +125,19 @@
                      <!-- Mainmenu Start -->
                      <ul class="mainmenu">
                         <li class="mainmenu__item ">
-                           <a href="/" class="mainmenu__link">Ana Sayfa</a>
+                           <a href="{% url 'pets:home' %}" class="mainmenu__link">Ana Sayfa</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="/blog" class="mainmenu__link">Blog</a>
+                           <a href="{% url 'blog:posts' %}" class="mainmenu__link">Blog</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="/dashboard" class="mainmenu__link">İlanlar</a>
+                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">İlanlar</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="/about_us" class="mainmenu__link">Hakkımızda</a>
+                           <a href="{% url 'pets:about-us' %}" class="mainmenu__link">Hakkımızda</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="/contact_us" class="mainmenu__link">İletişim</a>
+                           <a href="{% url 'pets:contact-us' %}" class="mainmenu__link">İletişim</a>
                         </li>
                      </ul>
                      <!-- Mainmenu End -->
@@ -145,7 +147,7 @@
                <div class="col-lg-2 col-6 offset-6 offset-md-0 col-md-3 order-3">
                   {% if request.user.is_authenticated %}
                      <div class="cart-widget-wrapper slide-down-wrapper">
-                        <a href="{% url 'pets:mypets' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
+                        <a href="{% url 'pets:my-pets' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
                            <div class="cart-icon">
                               <i class="fas fa-dog"></i>
                               <span class="cart-count-badge">
@@ -159,7 +161,7 @@
                      </div>
                   {% else %}
                      <div class="cart-widget-wrapper slide-down-wrapper">
-                        <a href="{% url 'profiles:register' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
+                        <a href="{% url 'profiles:custom-login' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
                            <div class="cart-icon">
                               <i class="fas fa-dog"></i>
                            </div>
@@ -196,19 +198,19 @@
                   <nav class="sticky-navigation">
                      <ul class="mainmenu sticky-menu">
                         <li class="mainmenu__item ">
-                           <a href="portfolio.html" class="mainmenu__link">Ana Sayfa</a>
+                           <a href="{% url 'pets:home' %}" class="mainmenu__link">Ana Sayfa</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="index.html" class="mainmenu__link">Blog</a>
+                           <a href="{% url 'blog:posts' %}" class="mainmenu__link">Blog</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="index.html" class="mainmenu__link">İlanlar</a>
+                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">İlanlar</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="index.html" class="mainmenu__link">Hakkımızda</a>
+                           <a href="{% url 'pets:about-us' %}" class="mainmenu__link">Hakkımızda</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="index.html" class="mainmenu__link">İletişim</a>
+                           <a href="{% url 'pets:contact-us' %}" class="mainmenu__link">İletişim</a>
                         </li>
                      </ul>
                      <div class="sticky-mobile-menu  d-lg-none">

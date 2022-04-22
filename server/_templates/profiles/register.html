@@ -10,36 +10,50 @@
                <form method="POST">
                   {% csrf_token %}
                   <h4 class="login-title">Kayıt ol</h4>
-                  {% if form.errors %}
+                  {% if form_user.errors or form_profile.errors  %}
                      <div class="alert alert-danger alert-dismissible" role="alert">
-                         <div id="form_errors">
-                             {% for key, value in form.errors.items %}
+                         <div>
+                              {% for key, value in form_user.errors.items %}
                                  <strong>{{ value }}</strong>
-                             {% endfor %}
+                              {% endfor %}
+                              {% for key, value in form_profile.errors.items %}
+                                 <strong>{{ value }}</strong>
+                              {% endfor %}
                          </div>
                      </div>
                   {% endif %}
+                  {% for message in messages %}
+                     <div class="alert alert-success">
+                        {{ message }}
+                     </div>
+                  {% endfor %}
                   <div class="login-form">
                      <div class="row">
                         <div class="col-md-12 col-12 mb--20">
                            <label>Kullanıcı Adı</label>
                            {{ form_user.username }}
                         </div>
-                        <div class="row mb--20">
-                           <div class="col-md-6">
-                              <label>Adınız</label>
-                              {{ form_user.first_name }}                           
-                           </div>
-                           <div class="col-md-6">
-                              <label>Soyadınız</label>
-                              {{ form_user.last_name }}
-                           </div>
+                        <div class="col-md-6 mb--20">
+                           <label>Adınız</label>
+                           {{ form_user.first_name }}                           
                         </div>
-                        <div class="col-12 mb--20">
+                        <div class="col-md-6 mb--20">
+                           <label>Soyadınız</label>
+                           {{ form_user.last_name }}
+                        </div>
+                        <div class="col-md-6 mb--20">
+                           <label>Telefon Numaranız</label>
+                           {{ form_profile.phone }}                           
+                        </div>
+                        <div class="col-md-6 mb--20">
+                           <label>WhatsApp Numaranız</label>
+                           {{ form_profile.waphone }}
+                        </div>
+                        <div class="col-md-6 mb--20">
                            <label>Parola</label>
                            {{ form_user.password1 }}
                         </div>
-                        <div class="col-12 mb--20">
+                        <div class="col-md-6 mb--20">
                            <label>Parola tekrar</label>
                            {{ form_user.password2 }}
                         </div>

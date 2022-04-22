@@ -1,0 +1,55 @@
+{% extends '../_origin/base.html' %}  
+{% load static %}
+{% load utils %}
+{% block title %}
+   Blog - {{ post.title }}
+{% endblock %}
+{% block content %}
+   <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+      <div class="container">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
+         </ol>
+      </div>
+   </nav>
+   <section class="blog-page-section with-sidebar">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 col-xl-9 left-slide-margin">
+               <div class="blog-post post-details single-block">
+                  <div class="blog-content mt--30">
+                     <header>
+                        <h3 class="blog-title"> <a href="blog-details.html">Hakkımızda</a></h3>
+                     </header>
+                     <article>
+                        <p>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Reiciendis culpa voluptatibus natus minima sequi at quam aliquam deserunt ipsam nihil eius veniam ex, officiis maiores mollitia vel rem nemo voluptates!
+                        </p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati rem iure sed dolorum fugiat dolor fuga voluptate animi ea. Nam consectetur facilis est eius voluptatem ea eligendi harum quam dicta? Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Dolor iste exercitationem aperiam debitis ratione, earum eligendi neque fugit, veniam voluptatibus maxime quis labore dolorum cupiditate delectus architecto. Quidem, sed, a.</p>
+                     </article>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+               <div class="sidebar-widget">
+                  <div class="single-sidebar">
+                     <h2 class="sidebar-title">Son haberler</h2>
+                     <ul class="sidebar-list">
+                        {% get_recent_posts as recent_posts %}
+                        {% for post in recent_posts %}
+                           <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                        {% endfor %}
+                     </ul>
+                  </div>
+                  <div class="single-sidebar">
+                     <a class="promo-image overflow-image">
+                     <img src="{% static 'image/product/slidebar-promo-product.jpg' %}" alt="">
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+{% endblock %}

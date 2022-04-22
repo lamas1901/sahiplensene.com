@@ -56,3 +56,9 @@ class Slide(models.Model):
 	button_link = models.TextField()
 
 	image = models.ImageField(upload_to='pets/slider')
+
+class Media(models.Model):
+
+	name = models.CharField(max_length=50)
+	link = models.TextField()
+	fa_icon = models.CharField(max_length=50)

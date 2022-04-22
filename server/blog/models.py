@@ -15,6 +15,7 @@ class Post(models.Model):
 		ANIMAL_CHOICES = tuple((pet_type.slug,pet_type.name) for pet_type in PetType.objects.all())
 	except:
 		ANIMAL_CHOICES = consts.DEFAULT_ANIMAL_TYPES
+		
 	title = models.CharField(max_length=50)
 	slug = models.SlugField(max_length=50,unique_for_date='publish')
 	image = models.ImageField(upload_to='blog/posts')

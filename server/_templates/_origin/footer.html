@@ -1,4 +1,5 @@
 {% load static %}
+{% load utils %}
 <footer class="site-footer">
    <div class="container">
       <div class="row">
@@ -7,15 +8,19 @@
                <h3 class="footer-title">SAHIPLENSENE.COM</h3>
                <div class="single-footer-content">
                   <p class="text-italic">Türkiye'nin en büyük hayvan sahiplendirme platformu</p>
-                  <p class="font-weight-500 text-white"><span class="d-block">Contact info:</span>
-                     169-C, Technohub, Dubai Silicon Oasis.
+                  <p class="font-weight-500 text-white"><span class="d-block">İletişim:</span>
+                     <div>
+                        <a href="tel:{% get_const 'PHONE_VALUE' %}">{% get_const 'PHONE_SHOW' %}</a>
+                     </div>
+                     <div>
+                        <a href="mailto:{% get_const 'EMAIL' %}">{% get_const 'EMAIL' %}</a>
+                     </div>
                   </p>
                   <p class="social-icons">
-                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                     <a href="#"><i class="fab fa-twitter"></i></a>
-                     <a href="#"><i class="fab fa-instagram"></i></a>
-                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                     <a href="#"><i class="fas fa-rss"></i></a>
+                     {% get_media as medias %}
+                     {% for media in medias %}
+                        <a href="{{media.link}}"><i class="{{media.fa_icon}}"></i></a>
+                     {% endfor %}
                   </p>
                </div>
             </div>
@@ -25,11 +30,25 @@
                <h3 class="footer-title">BAĞLANTILAR</h3>
                <div class="single-footer-content">
                   <ul class="footer-list">
-                     <li><a href="#">Ana Sayfa</a></li>
-                     <li><a href="#">İlanlar</a></li>
-                     <li><a href="#">Blog</a></li>
-                     <li><a href="#">İletişim</a></li>
+                     <li><a href="{% url 'pets:home' %}">Ana Sayfa</a></li>
+                     <li><a href="{% url 'pets:dashboard' %}">İlanlar</a></li>
+                     <li><a href="{% url 'blog:posts' %}">Blog</a></li>
+                     <li><a href="{% url 'pets:contact-us' %}">İletişim</a></li>
+                     <li><a href="{% url 'pets:about-us' %}">Hakkımızda</a></li>
                      <li><a href="#">Kullanım koşulları</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6 col-sm-6">
+            <div class="single-footer contact-block">
+               <h3 class="footer-title">Hayvan türleri</h3>
+               <div class="single-footer-content">
+                  <ul class="footer-list row">
+                     {% get_pet_types as pet_types %}
+                     {% for pet_type in pet_types %}
+                        <li class="col-lg-4"><a href="/dashboard?type={{ pet_type.slug }}">{{ pet_type.name }}</a></li>
+                     {% endfor %}
                   </ul>
                </div>
             </div>

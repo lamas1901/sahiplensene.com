@@ -144,9 +144,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 DEFAULT_FROM_EMAIL = CONFIG['mail']['default_from_email']
-EMAIL_BACKEND   = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS   = True
-EMAIL_PORT      = int(CONFIG['mail']['email_port'])
-EMAIL_HOST      = CONFIG['mail']['email_host']
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_PORT = int(CONFIG['mail']['email_port'])
+EMAIL_HOST = CONFIG['mail']['email_host']
 EMAIL_HOST_USER = CONFIG['mail']['email_host_user']
 EMAIL_HOST_PASSWORD = CONFIG['mail']['email_host_password']

@@ -40,8 +40,8 @@
                                  <a href="#" style="background: #3B5998" class="btn text-white w-auto col-md-6"><i class="fab fa-facebook"></i></a>
                               </div>
                            </p>
-                           <div><a href="/profile/password-forgot" class="pass-lost mt-3">Parolamı ututtum</a></div>
-                           <div><a href="/profile/password-forgot" class="pass-lost mt-3">Benim zaten hesabım var</a></div>
+                           <div><a href="{% url 'profiles:password-reset' %}" class="pass-lost mt-3">Parolamı ututtum</a></div>
+                           <div><a href="{% url 'profiles:custom-login' %}" class="pass-lost mt-3">Benim zaten hesabım var</a></div>
                         </div>
                      </div>
                   </div>

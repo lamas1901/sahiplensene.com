@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 class SignUpRequest(models.Model):
-    email = models.EmailField()
-    code = models.CharField(max_length=64)
+    email = models.EmailField(unique=True)
+    code = models.CharField(max_length=64,unique=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -8,8 +8,10 @@ urlpatterns = [
 	path('',views.home,name='home'),
 	path('dashboard/',views.dashboard,name='dashboard'),
 	path('pet/<slug:slug>/<int:id>',views.pet_details,name='pet'),
-	path('add_pet/',views.pet_add,name='add_pet'),
-	path('edit_pet/<int:id>',views.pet_edit,name='edit_pet'),
-	path('mypets/',views.mypets,name='mypets'),
-	path('mypets_delete/<int:id>',views.mypets_delete,name='mypets-delete')
+	path('pet_add/',views.pet_add,name='pet-add'),
+	path('pet_edit/<int:id>',views.pet_edit,name='pet-edit'),
+	path('pet_delete/<int:id>',views.pet_delete,name='pet-delete'),
+	path('my_pets/',views.my_pets,name='my-pets'),
+	path('about_us/',views.about_us,name='about-us'),
+	path('contact_us',views.about_us,name='contact-us')
 ]

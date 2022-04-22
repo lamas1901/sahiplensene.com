@@ -106,3 +106,9 @@ DEFAULT_ANIMAL_TYPES = (
 	('cat','Kedi'),
 	('bird','Kuş')
 )
+
+SHOP_DATA = {
+	'PHONE_VALUE':'+905392405639',
+	'PHONE_SHOW':'+90 (539) 240 56 39',
+	'EMAIL':'contact@sahiplensene.com'
+}

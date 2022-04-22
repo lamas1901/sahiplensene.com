@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Pet, PetType, Slide
+from .models import Pet, PetType, Slide, Media
 
 @admin.register(Pet)
 class PetAdmin(admin.ModelAdmin):
@@ -20,6 +20,11 @@ class PetTypeAdmin(admin.ModelAdmin):
 	search_fields = ('name','slug')
 
 @admin.register(Slide)
-class Slide(admin.ModelAdmin):
+class SlideAdmin(admin.ModelAdmin):
 	list_display = ('heading',)
 	ordering = ('heading',)
+
+@admin.register(Media)
+class MediaAdmin(admin.ModelAdmin):
+	list_display = ('name',)
+	ordering = ('name',)

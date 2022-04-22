@@ -13,13 +13,20 @@ from .forms import PetForm
 from .models import Pet, Slide
 
 
+def about_us(request):
+	return render(request,'pets/about_us.html')
+
+def contact_us(request):
+	return render(request,'pets/contact_us.html')
+
 def home(request):
+
 	slides = Slide.objects.all()
 
-	super_pets 		= Pet.objects.all().filter(advert_type='super')
-	platinum_pets 	= Pet.objects.all().filter(advert_type='platinum')
-	gold_pets 		= Pet.objects.all().filter(advert_type='gold')
-	silver_pets 	= Pet.objects.all().filter(advert_type='silver')
+	super_pets = Pet.objects.all().filter(advert_type='super')
+	platinum_pets = Pet.objects.all().filter(advert_type='platinum')
+	gold_pets = Pet.objects.all().filter(advert_type='gold')
+	silver_pets = Pet.objects.all().filter(advert_type='silver')
 
 	return render(request,'pets/home.html',{
 		'slides':slides,
@@ -44,8 +51,14 @@ def dashboard(request):
 		'height',
 		'age'
 	]
+
 	# переменная для передачи в шаблон для сохранение состояний переключателей фильтров
 	filter_values = {}
+
+	# применить фильтр сортировки
+	if request.GET.get('keyword'):
+		pets = pets.filter(name__lower__startswith=request.GET['keyword'])
+		filter_values['keyword'] = request.GET['keyword']
 
 	# перебор простых фильтров
 	for filter_name in straight_filters:
@@ -102,7 +115,7 @@ def pet_details(request,slug,id):
 		slug=slug,
 		id=id
 	) 
-	return render(request,'pets/pet_details.html',{'pet':pet})
+	return render(request,'pets/pet.html',{'pet':pet})
 
 
 @login_required(login_url='profiles:custom-login')
@@ -113,19 +126,19 @@ def pet_add(request):
 		if form.is_valid():
 			if len(Pet.objects.all().filter(owner=request.user)) < 10:
 				pet = Pet(
-					slug = 			slugify(form.cleaned_data['name']),
-					name = 			form.cleaned_data['name'],
-					animal_type = 	form.cleaned_data['animal_type'],
-					breed = 		form.cleaned_data['breed'],
-					color = 		form.cleaned_data['color'],
-					age = 			form.cleaned_data['age'],
-					height = 		form.cleaned_data['height'],
-					price = 		form.cleaned_data['price'],
-					city = 			form.cleaned_data['city'],
-					sex = 			form.cleaned_data['sex'],
-					photo = 		form.cleaned_data['photo'],
-					description = 	form.cleaned_data['description'],
-					owner = 		request.user
+					slug = slugify(form.cleaned_data['name']),
+					name = form.cleaned_data['name'],
+					animal_type = form.cleaned_data['animal_type'],
+					breed = form.cleaned_data['breed'],
+					color = form.cleaned_data['color'],
+					age = form.cleaned_data['age'],
+					height = form.cleaned_data['height'],
+					price = form.cleaned_data['price'],
+					city = form.cleaned_data['city'],
+					sex = form.cleaned_data['sex'],
+					photo = form.cleaned_data['photo'],
+					description = form.cleaned_data['description'],
+					owner = request.user
 				)
 				pet.save()
 				messages.success(request,message='İlanınız yayınlandı!')
@@ -134,7 +147,7 @@ def pet_add(request):
 				messages.error(request,message='10 ilandan fazla ilan veremezsiniz! İlan vermek için mevcut ilanınızı silin...')
 	else:
 		form = PetForm()
-	return render(request,'pets/pet_add.html',{'form':form})
+	return render(request,'pets/pet-add.html',{'form':form})
 
 
 @login_required(login_url='profiles:custom-login')
@@ -148,19 +161,20 @@ def pet_edit(request,id):
 	else:
 		form = PetForm(instance=pet)
 
-	return render(request,'pets/pet_add.html',{'form':form,'pet':pet})
+	return render(request,'pets/pet-add.html',{'form':form,'pet':pet})
 
 
 @login_required(login_url='profiles:custom-login')
-def mypets(request):
-	mypets = Pet.objects.all().filter(owner=request.user)
-	return render(request,'pets/mypets.html',{'mypets':mypets})
-
-
-@login_required(login_url='profiles:custom-login')
-def mypets_delete(request,id):
+def pet_delete(request,id):
 	pet = get_object_or_404(Pet,id=id)
 	if pet.owner.id == request.user.id:
 		pet.delete()
-	return redirect(to='pets:mypets')
+	return redirect(to='pets:my-pets')
+
+@login_required(login_url='profiles:custom-login')
+def my_pets(request):
+	mypets = Pet.objects.all().filter(owner=request.user)
+	return render(request,'pets/my-pets.html',{'mypets':mypets})
+
+
 

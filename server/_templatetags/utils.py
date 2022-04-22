@@ -2,7 +2,7 @@ from django import template
 from django.utils.safestring import mark_safe
 import markdown
 
-from pets.models import PetType, Pet
+from pets.models import PetType, Pet, Media
 from pets.utils.consts import (
 	CITIES, 
 	ADVERT_HIERARCHY, 
@@ -78,3 +78,13 @@ def pagination(objects,get_params_string=''):
 @register.simple_tag
 def get_mypet_count(request):
 	return len(Pet.objects.filter(owner=request.user))
+
+# SHOP_DATA
+
+@register.simple_tag
+def get_const(name):
+	return consts.SHOP_DATA[name]
+
+@register.simple_tag
+def get_media():
+	return Media.objects.all()
