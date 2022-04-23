@@ -388,7 +388,7 @@
       <div class="pt--50 mb-5">
          <div class="container">
             <div class="block-title">
-               <h2>LATEST BLOGS</h2>
+               <h2>SON HABERLER</h2>
             </div>
             <div class="petmark-slick-slider border normal-slider blog-slider"
                data-slick-setting='{
@@ -406,7 +406,7 @@
                      <div class="blog-post card-style-list--2">
                         <div class="row">
                            <div class="col-lg-6">
-                              <a href="blog-details.html" class="image overflow-image">
+                              <a href="{{ post.get_absolute_url }}" class="image overflow-image">
                               <img src="{{ post.image.url }}" style="height: 200px; width: 100%; object-fit: cover;" alt="">
                               </a>
                            </div>
