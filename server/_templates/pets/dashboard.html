@@ -168,8 +168,8 @@
 		                     <div>Tür:</div>
 		                     <select id="input-sort" name="type" class="form-control d-block">
 		                     	{% get_pet_types as animal_types %}
+	                     		<option value="all">Hepsi</option>
 		                     	{% for type in animal_types %}
-		                     		<option value="all">Hepsi</option>
 			                        <option value="{{type.slug}}" {% if type.slug == filter_values.type %}selected {% endif %}>{{type.name}}</option>
 		                     	{% endfor %}
 		                     </select>
