@@ -153,7 +153,7 @@
                               {% if pet.advert_type != 'normal' %}
                                  <span 
                                     class="onsale-badge" 
-                                    style="background: {% get_advert_level_color pet.type %} !important">
+                                    style="background: {% get_advert_level_color pet.advert_type %} !important">
                                     {% get_advert_level pet.advert_type %}
                                  </span>
                               {% endif %}

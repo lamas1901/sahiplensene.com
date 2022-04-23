@@ -47,7 +47,7 @@ def get_pet_types():
 def get_pet_type(slug):
 	pet_type = PetType.objects.filter(slug=slug)
 	if pet_type:
-		return PetType.objects.get(slug=slug)[0].name
+		return PetType.objects.get(slug=slug).name
 	else:
 		return None
 

@@ -58,14 +58,14 @@
 					                     {% if pet.advert_type != 'normal' %}
 										   <span 
 										      class="onsale-badge" 
-										      style="background: {% get_advert_level_color pet.type %} !important">
-										      {% get_advert_level pet.type %}
+										      style="background: {% get_advert_level_color pet.advert_type %} !important">
+										      {% get_advert_level pet.advert_type %}
 										   </span>
 										{% endif %}
 			                     </a>
 			                     <div class="content">
 			                        <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
-			                        <p class="font-weight-500 text-muted">{{pet.animal_type}}</p>
+			                        <p class="font-weight-500 text-muted">{% get_pet_type pet.animal_type %}</p>
 			                        <div class="price text-red">
 			                           <span>
 				                        	{% if pet.price %}
