@@ -117,7 +117,7 @@
 		                     <div 
 		                     	class="pm-range-slider" 
 		                     	id="range-slider-height" 
-		                     	data-from="10" 
+		                     	data-from="0" 
 		                     	data-to="200" 
 		                     	data-min="{% if filter_values.height.0 %}{{filter_values.height.0}}{% else %}10{% endif %}" 
 		                     	data-max="{% if filter_values.height.1 %}{{filter_values.height.1}}{% else %}200{% endif %}"></div>
@@ -134,7 +134,7 @@
 		                     <div 
 		                     	class="pm-range-slider" 
 		                     	id="range-slider-age" 
-		                     	data-from="1" 
+		                     	data-from="0" 
 		                     	data-to="50" 
 		                     	data-min="{% if filter_values.age.0 %}{{filter_values.age.0}}{% else %}1{% endif %}" 
 		                     	data-max="{% if filter_values.age.1 %}{{filter_values.age.1}}{% else %}50{% endif %}"></div>
@@ -161,7 +161,7 @@
 		                     <select id="input-sort" name="sex" class="form-control d-block">
 			                     <option value="all">Hepsi</option>
 		                        <option value="male" {% if filter_values.sex == 'male' %}selected {% endif %}>Erkek</option>
-		                        <option value="female" {% if filter_values.sex == 'female' %}selected {% endif %}>Kız</option>
+		                        <option value="female" {% if filter_values.sex == 'female' %}selected {% endif %}>Dişi</option>
 		                     </select>
                   		</div>
                   		<div class="col-6">
@@ -193,6 +193,7 @@
 	                     	id="range-slider-price" 
 	                     	data-from="0" 
 	                     	data-to="500" 
+	                     	data-name="price"
 	                     	data-min="{% if filter_values.price.0 %}{{filter_values.price.0}}{% else %}0{% endif %}" 
 	                     	data-max="{% if filter_values.price.1 %}{{filter_values.price.1}}{% else %}500{% endif %}">
                      	</div>

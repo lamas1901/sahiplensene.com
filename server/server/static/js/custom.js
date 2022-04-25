@@ -249,6 +249,7 @@ jQuery(document).ready(function () {
         Object.keys(RANGE_SLIDERS).forEach((key)=>{
             $(function () {
                 let range = document.querySelector(key)
+                let min = range.dataset.name==='price'?'Bedava':0;
                 console.log(range)
                 $(`${key}`).slider({
                     range: true,
@@ -256,11 +257,11 @@ jQuery(document).ready(function () {
                     max: Number(range.dataset.to),
                     values: [Number(range.dataset.min), Number(range.dataset.max)],
                     slide: function (event, ui) {
-                        $(`${key}-amount`).val((ui.values[0]?RANGE_SLIDERS[key][2]+ui.values[0]:'Bedava') + ` - ${RANGE_SLIDERS[key][2]}` + ui.values[1] + (ui.values[1]===Number(range.dataset.to)?'+':''));
+                        $(`${key}-amount`).val((ui.values[0]?RANGE_SLIDERS[key][2]+ui.values[0]:min) + ` - ${RANGE_SLIDERS[key][2]}` + ui.values[1] + (ui.values[1]===Number(range.dataset.to)?'+':''));
                     }
                 });
                 $(`${key}-amount`).val(
-                    ($(`${key}`).slider("values", 0)?RANGE_SLIDERS[key][2]+$(`${key}`).slider("values", 0):'Bedava') +
+                    ($(`${key}`).slider("values", 0)?RANGE_SLIDERS[key][2]+$(`${key}`).slider("values", 0):min) +
                     ` - ${RANGE_SLIDERS[key][2]}` + $(`${key}`).slider("values", 1) +
                     ($(`${key}`).slider("values", 1)===Number(range.dataset.to)?'+':'')
                 );

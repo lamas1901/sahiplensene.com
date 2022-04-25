@@ -148,7 +148,7 @@
                <div class="col-lg-2 col-6 offset-6 offset-md-0 col-md-3 order-3">
                   {% if request.user.is_authenticated %}
                      <div class="cart-widget-wrapper slide-down-wrapper">
-                        <a href="{% url 'pets:my-pets' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
+                        <a href="{% url 'pets:my-pets' %}" class="cart-widget justify-content-center" style="border: 1px solid rgba(0,0,0,0.1)">
                            <div class="cart-icon">
                               <i class="fas fa-dog"></i>
                               <span class="cart-count-badge">
@@ -156,18 +156,18 @@
                               </span>
                            </div>
                            <div class="cart-text">
-                              <span class="d-block">Hayvan İlanlarım</span>
+                              <span class="d-block">Hayvan <br>İlanlarım</span>
                            </div>
                         </a>
                      </div>
                   {% else %}
                      <div class="cart-widget-wrapper slide-down-wrapper">
-                        <a href="{% url 'profiles:custom-login' %}" class="cart-widget" style="border: 1px solid rgba(0,0,0,0.1)">
+                        <a href="{% url 'profiles:custom-login' %}" class="cart-widget justify-content-center" style="border: 1px solid rgba(0,0,0,0.1)">
                            <div class="cart-icon">
                               <i class="fas fa-dog"></i>
                            </div>
                            <div class="cart-text">
-                              <span class="d-block">Hayvan İlanı Ver</span>
+                              <span class="d-block">Hayvan <br>İlanı Ver</span>
                            </div>
                         </a>
                      </div>
