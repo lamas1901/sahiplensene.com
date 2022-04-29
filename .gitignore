@@ -163,3 +163,8 @@ _media/
 _tmp/
 config.ini
 migrations/
+
+*.sublime-project
+*.sublime-workspace
+.*
+.*/
