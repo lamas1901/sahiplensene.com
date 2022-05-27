@@ -84,7 +84,7 @@ CITIES = (
 
 # PET_HIERARCHY 
 
-ADVERT_HIERARCHY = (
+ADVERT_CHOICES = (
 	('normal','Normal'),
 	('super','Süper'),
 	('platinum','Platinum'),
@@ -92,19 +92,16 @@ ADVERT_HIERARCHY = (
 	('silver','Gümüş')
 )
 
-ADVERT_HIERARCHY_COLORS = {
+ADVERT_COLORS = {
 	'super': 'red',
 	'platinum':'blue',
 	'gold':'gold',
 	'silver':'silver',
 }
 
-# DEFAULT_ANIMAL_TYPES
-
-DEFAULT_ANIMAL_TYPES = (
-	('dog','Köpek'),
-	('cat','Kedi'),
-	('bird','Kuş')
+SEX_CHOICES = (
+	('male','Erkek'),
+	('female','Dişi')
 )
 
 SHOP_DATA = {

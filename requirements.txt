@@ -1,5 +1,4 @@
 asgiref==3.5.0
-configparser==5.2.0
 Django==4.0.4
 django-phonenumber-field==6.1.0
 django-taggit==2.1.0

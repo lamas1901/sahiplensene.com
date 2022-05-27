@@ -6,10 +6,10 @@ from django.urls import path,include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('pets.urls')),
     path('blog/', include('blog.urls')),
-    path('profile/', include('profiles.urls'))
+    path('profile/', include('profiles.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

@@ -1,15 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.files import File
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
 from slugify import slugify
+
 
 import re
 import urllib
 
-from .forms import PetForm
 from .models import Pet, Slide
 
 
@@ -109,60 +113,48 @@ def dashboard(request):
 	return render(request,'pets/dashboard.html',{'pets':pets,'filter_string':filter_string,'filter_values':filter_values})
 
 
-def pet_details(request,slug,id):
-	pet = get_object_or_404(
-		Pet,
-		slug=slug,
-		id=id
-	) 
-	return render(request,'pets/pet.html',{'pet':pet})
+class PetDetailView(DetailView):
+	model = Pet
+	template_name = 'pets/pet.html'
+
+	def get_object(self,queryset=None):
+		return Pet.objects.get(id=self.kwargs.get('pk'),slug=self.kwargs.get('slug'))
 
 
-@login_required(login_url='profiles:custom-login')
-def pet_add(request):
-	if request.method == 'POST':
-		form = PetForm(request.POST,request.FILES)
-		print(request.FILES)
-		if form.is_valid():
-			if len(Pet.objects.all().filter(owner=request.user)) < 10:
-				pet = Pet(
-					slug = slugify(form.cleaned_data['name']),
-					name = form.cleaned_data['name'],
-					animal_type = form.cleaned_data['animal_type'],
-					breed = form.cleaned_data['breed'],
-					color = form.cleaned_data['color'],
-					age = form.cleaned_data['age'],
-					height = form.cleaned_data['height'],
-					price = form.cleaned_data['price'],
-					city = form.cleaned_data['city'],
-					sex = form.cleaned_data['sex'],
-					photo = form.cleaned_data['photo'],
-					description = form.cleaned_data['description'],
-					owner = request.user
-				)
-				pet.save()
-				messages.success(request,message='İlanınız yayınlandı!')
-				form = PetForm()
-			else:
-				messages.error(request,message='10 ilandan fazla ilan veremezsiniz! İlan vermek için mevcut ilanınızı silin...')
-	else:
-		form = PetForm()
-	return render(request,'pets/pet-add.html',{'form':form})
+class PetAddView(CreateView,LoginRequiredMixin):
+	model = Pet
+	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo']
+	template_name = 'pets/pet-add.html'
+
+	def get_form(self, form_class=None):
+		form = self.get_form_class()(**self.get_form_kwargs())
+		form.fields['photo'].widget.attrs.update({'onchange':'preview();'})
+		for field in form.fields:
+			form.fields[field].widget.attrs.update({'class':'form-control'})
+
+		return form
+
+	def form_valid(self, form):
+		instance = form.save(commit=False)
+		instance.slug = slugify(instance.name)
+		instance.owner = self.request.user
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
 
 
-@login_required(login_url='profiles:custom-login')
-def pet_edit(request,id):
-	pet = Pet.objects.all().get(id=id)
-	if request.method == 'POST':
-		form = PetForm(request.POST,request.FILES,instance=pet)
-		if form.is_valid():
-			form.save()
-			messages.success(request,'Değişiklikler kaydedildi')
-	else:
-		form = PetForm(instance=pet)
+class PetEditView(UpdateView,LoginRequiredMixin):
+	model = Pet
+	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo']
+	template_name = 'pets/pet-add.html'
 
-	return render(request,'pets/pet-add.html',{'form':form,'pet':pet})
+	def get_form(self, form_class=None):
 
+		form = self.get_form_class()(**self.get_form_kwargs())
+		form.fields['photo'].widget.attrs.update({'onchange':'preview();'})
+		for field in form.fields:
+			form.fields[field].widget.attrs.update({'class':'form-control'})
+
+		return form
 
 @login_required(login_url='profiles:custom-login')
 def pet_delete(request,id):

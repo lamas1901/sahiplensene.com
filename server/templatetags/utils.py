@@ -5,8 +5,8 @@ import markdown
 from pets.models import PetType, Pet, Media
 from pets.utils.consts import (
 	CITIES, 
-	ADVERT_HIERARCHY, 
-	ADVERT_HIERARCHY_COLORS
+	ADVERT_CHOICES, 
+	ADVERT_COLORS
 )
 from pets.utils import consts
 from blog.models import Post 
@@ -25,13 +25,13 @@ def define(val=None):
 
 @register.simple_tag
 def get_advert_level(slug):
-	for level in ADVERT_HIERARCHY:
+	for level in ADVERT_CHOICES:
 		if level[0] == slug:
 			return level[1]
 
 @register.simple_tag
 def get_advert_level_color(slug):
-	return ADVERT_HIERARCHY_COLORS.get(slug,'')
+	return ADVERT_COLORS.get(slug,'')
 
 # PET TYPE
 
