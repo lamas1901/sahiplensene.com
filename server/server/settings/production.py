@@ -13,6 +13,9 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR/'server/static',
+]
 STATIC_ROOT = BASE_DIR/'assets/static'
 
 MEDIA_URL = 'media/'
