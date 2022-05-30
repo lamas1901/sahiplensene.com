@@ -1,8 +1,11 @@
-import os
+import environ
 
 from .common import *
 
-DEBUG = int(os.environ.get('DJANGO_DEBUG')) 
+env = environ.Env()
+env.read_env(BASE_DIR/'.env')
+
+DEBUG = int(env('DEBUG')) 
  
 if DEBUG:
 	from .development import *

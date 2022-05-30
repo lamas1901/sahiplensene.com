@@ -7,6 +7,12 @@ class SignUpRequest(models.Model):
     email = models.EmailField(unique=True)
     code = models.CharField(max_length=64,unique=True)
 
+    def __repr__(self):
+        return f'<SignUpRequest- {self.email} >'
+
+    def __str__(self):
+        return f'Hesap Açma İsteği ({self.email})'
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = PhoneNumberField(blank=True,null=True)
@@ -23,5 +29,8 @@ class Profile(models.Model):
             img.thumbnail(new_img)
             img.save(self.avatar.path)
 
+    def __repr__(self):
+        return f'<Profile{self.user.username} {self.phone}>'
+
     def __str__(self):
-        return f'<{self.user.username} {self.phone}>'
+        return f'Profil ({self.user.username})'

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -10,7 +11,7 @@ class PetType(models.Model):
 	slug = models.SlugField('Slug',max_length=255,unique=True)
 
 	def __str__(self):
-		return self.name
+		return f'Hayvan Türü - {self.name}'
 
 	def __repr__(self):
 		return f'<PetType-{self.name}>'
@@ -40,7 +41,7 @@ class Pet(models.Model):
 		])
 
 	def __str__(self):
-		return self.name
+		return f'Hayvan İlanı - {self.name}'
 
 	def __repr__(self):
 		return f'<Pet-{self.name}>'
@@ -48,18 +49,40 @@ class Pet(models.Model):
 
 class Slide(models.Model):
 
-	heading_pre = models.CharField('Üst Başlık',max_length=50)
-	heading = models.CharField('Başlık',max_length=50)
-	heading_sub = models.CharField('',max_length=100)
+	heading_pre = models.CharField('Üst Başlık',max_length=50,blank=True,null=True)
+	heading = models.CharField('Başlık',max_length=50,blank=True,null=True)
+	heading_sub = models.CharField('Alt Başlık',max_length=100,blank=True,null=True)
 
 	button_show = models.BooleanField('Tuş Ekle',default=False)
-	button_text = models.CharField('Tuş Yazısı',max_length=50)
-	button_link = models.TextField('Tuş Linki')
+	button_text = models.CharField('Tuş Yazısı',max_length=50,blank=True,null=True)
+	button_link = models.TextField('Tuş Linki',blank=True,null=True)
 
 	image = models.ImageField('Arka Plan',upload_to='pets/slider')
 
+	def __str__(self):
+		return f'Slayt {self.id}'
+
 	def __repr__(self):
-		return f'<Slide-{self.heading}>'
+		return f'<Slide-{self.id}>'
+
+
+class VideoSlide(models.Model):
+
+	video = models.FileField(
+		upload_to='videos_uploaded',
+		null=True,
+		validators=[
+			FileExtensionValidator(
+				allowed_extensions=['MOV','avi','mp4','webm','mkv']
+			)
+		]
+	)
+
+	def __str__(self):
+		return f'Video Slayt {self.id}'
+
+	def __repr__(self):
+		return f'<VideoSlide-{self.id}>'
 
 
 class Media(models.Model):
@@ -68,7 +91,7 @@ class Media(models.Model):
 	fa_icon = models.CharField('Medya İkonu',max_length=50)
 
 	def __str__(self):
-		return self.name
+		return f'Medya {self.name}'	
 
 	def __repr__(self):
 		return f'<Media-{self.name}>'

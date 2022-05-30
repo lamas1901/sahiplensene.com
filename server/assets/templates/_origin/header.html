@@ -30,8 +30,8 @@
                <!-- Template Logo -->
                <div class="col-lg-3 col-md-12 col-sm-4">
                   <div class="site-brand  text-center text-lg-start">
-                     <a href="/" class="brand-image">
-                     <img src="{% static 'image/main-logo.png' %}" alt="">
+                     <a href="{% url 'pets:home' %}" class="brand-image">
+                        <img src="{% static 'image/main-logo.png' %}" alt="">
                      </a>
                   </div>
                </div>
@@ -41,7 +41,7 @@
                      <input type="text" name="keyword" placeholder="Evil hayvanını bul...">
                      <div class="search-form__group search-form__group--select">
                         <select name="city" id="searchCategory" class="search-form__select nice-select">
-                           <option value="all">Hepsi</option> 
+                           <option value="all">Bütün İller</option> 
                            {% get_cities as cities %}
                            {% for city in cities %}
                               <option value="{{city.0}}">{{city.1}}</option>                              

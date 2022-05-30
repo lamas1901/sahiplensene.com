@@ -14,7 +14,7 @@ from slugify import slugify
 import re
 import urllib
 
-from .models import Pet, Slide
+from .models import Pet, Slide, VideoSlide
 
 
 def about_us(request):
@@ -26,6 +26,7 @@ def contact_us(request):
 def home(request):
 
 	slides = Slide.objects.all()
+	video_slides = VideoSlide.objects.all()
 
 	super_pets = Pet.objects.all().filter(advert_type='super')
 	platinum_pets = Pet.objects.all().filter(advert_type='platinum')
@@ -34,6 +35,7 @@ def home(request):
 
 	return render(request,'pets/home.html',{
 		'slides':slides,
+		'video_slides': video_slides,
 		'super_pets':super_pets,
 		'platinum_pets':platinum_pets,
 		'gold_pets':gold_pets,

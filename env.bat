@@ -1,6 +1,6 @@
 @echo off
 
-set DJANGO_DEBUG=0
+set DJANGO_DEBUG=1
 
 set EMAIL=nsit2002@gmail.com
 set EMAIL_PORT=587

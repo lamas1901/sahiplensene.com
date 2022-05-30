@@ -12,13 +12,13 @@ class Post(models.Model):
 		('published','Published')
 	)
 	
-	title = models.CharField(max_length=50)
-	slug = models.SlugField(max_length=50,unique_for_date='publish')
-	image = models.ImageField(upload_to='blog/posts')
-	excerpt = models.CharField(max_length=255)
-	content = models.TextField()
-	publish = models.DateTimeField(default=timezone.now)
-	status = models.CharField(max_length=10,choices=STATUS_CHOICES,default='draft')
+	title = models.CharField('Başlık',max_length=50)
+	slug = models.SlugField('Slug',max_length=50,unique_for_date='publish')
+	image = models.ImageField('Resim',upload_to='blog/posts')
+	excerpt = models.CharField('Alt Başlık',max_length=255)
+	content = models.TextField('İçerik')
+	publish = models.DateTimeField('Yayınlama Tarihi',default=timezone.now)
+	status = models.CharField('Statüs',max_length=10,choices=STATUS_CHOICES,default='draft')
 	for_pet_type = models.ForeignKey(PetType,on_delete=models.CASCADE)
 	tags = TaggableManager()
 
@@ -26,3 +26,9 @@ class Post(models.Model):
 		return reverse('blog:post_details',
 			args= [ self.slug ]
 		)
+
+	def __repr__(self):
+		return f'<Post-"{self.title}">'
+
+	def __str__(self):
+		return f'"{self.title}" adlı Yazı'

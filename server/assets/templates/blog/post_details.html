@@ -43,36 +43,40 @@
                      </footer>
                   </div>
                </div>
-               <div class="related-post-block single-block">
-                  <h3>Benzer haberler</h3>
-                  <div class="row">
-                     {% for post in similar_posts %}
-                        <div class="col-md-4 mt--30">
-                           <div class="related-post">
-                              <div class="image">
-                                 <img style="height: 200px; width: 100%; object-fit:cover;" src="{{ post.image.url }}" alt="">
-                              </div>
-                              <div class="content">
-                                 <h4 class="post-date">{{ post.date }}</h4>
-                                 <h2 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+               {% if similar_posts %}
+                  <div class="related-post-block single-block">
+                     <h3>Benzer haberler</h3>
+                     <div class="row">
+                        {% for post in similar_posts %}
+                           <div class="col-md-4 mt--30">
+                              <div class="related-post">
+                                 <div class="image">
+                                    <img style="height: 200px; width: 100%; object-fit:cover;" src="{{ post.image.url }}" alt="">
+                                 </div>
+                                 <div class="content">
+                                    <h4 class="post-date">{{ post.date }}</h4>
+                                    <h2 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                     {% endfor %}
+                        {% endfor %}
+                     </div>
                   </div>
-               </div>
+               {% endif %}
             </div>
             <div class="col-lg-4 col-xl-3">
-               <div class="sidebar-widget">
-                  <div class="single-sidebar">
-                     <h2 class="sidebar-title">Son haberler</h2>
-                     <ul class="sidebar-list">
-                        {% get_recent_posts as recent_posts %}
-                        {% for post in recent_posts %}
-                           <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-                        {% endfor %}
-                     </ul>
-                  </div>
+               <div class="sidebar-widget">      
+                  {% get_recent_posts as recent_posts %}
+                  {% if recent_posts %}
+                     <div class="single-sidebar">
+                        <h2 class="sidebar-title">Son haberler</h2>
+                        <ul class="sidebar-list">
+                           {% for post in recent_posts %}
+                              <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  {% endif %}
                   <div class="single-sidebar">
                      <a class="promo-image overflow-image">
                      <img src="{% static 'image/product/slidebar-promo-product.jpg' %}" alt="">

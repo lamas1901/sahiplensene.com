@@ -4,79 +4,55 @@
 {% block title %}
    - Ana Sayfa
 {% endblock %}
+{% block custom_css %}
+   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 {% block content %}
-   {% if slides %}
-   	<section class="home-4">
-         <div class=" petmark-slick-slider  home-slider dot-position-1" data-slick-setting='{
-            "autoplay": true,
-            "autoplaySpeed": 8000,
-            "slidesToShow": 1,
-            "dots": true
-            }'
-            >
-            {% for slide in slides %}
-               <div 
-                  class="single-slider home-content" 
-                  style="background-image: url({{ slide.image.url  }}) !important;" 
-                  data-bg="{% static 'image/bg-images/home-4/slider-1.jpg' %}">
-                  <div class="container position-relative">
-                     <div class="row">
-                        <div class="col-lg-6">
-                           <h3>{{ slide.heading_pre }}</h3>
-                           <h1 class="text-primary">{{ slide.heading }}</h1>
-                           <h4 class="mt--30">{{ slide.heading_sub }}</h4>
-                           {% if slide.button_show %}
-                              <div class="slider-btn mt--30">
-                                 <a href="{{ slide.button_link }}" class="btn btn-outlined--primary btn-rounded">{{ slide.button_text }}</a>
-                              </div>
-                           {% endif %}
+   <!-- Slider main container -->
+   <div class="swiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+         {% for slide in video_slides %}
+            <div class="swiper-slide slide">
+               <!--<div class="slide__background">-->
+               <video class="slide__background" autoplay muted loop>
+                  <source src="{{slide.video.url}}">
+               </video>
+            </div>
+         {% endfor %}
+         {% for slide in slides %}
+            <div class="swiper-slide slide">
+               <img src="{{ slide.image.url }}" alt="" class="slide__background">
+               <div class="container">
+                  <div class="slide__stuff">
+                     <h5>
+                        {% if slide.heading_pre %}
+                           {{ slide.heading_pre }}
+                        {% endif %}
+                     </h5>
+                     <h3>
+                        {% if slide.heading_sub %}
+                           {{ slide.heading_sub }}
+                        {% endif %}
+                     </h3>
+                     <h5>
+                        {% if slide.heading %}
+                           {{ slide.heading }}
+                        {% endif %}
+                     </h5>
+                     {% if slide.button_show %}
+                        <div class="slider-btn mt--30">
+                           <a href="{{ slide.button_link }}" class="btn btn-outlined--primary btn-rounded">{{ slide.button_text }}</a>
                         </div>
-                     </div>
-                  </div>
-                  <span class="herobanner-progress"></span>
-               </div>
-            {% endfor %}
-         </div>
-      </section>
-      <div class="container pt--50 position-relative">
-         <div class="policy-block border-four-column absoute-policy">
-            <div class="row">
-               <div class="col-lg-3 col-sm-6">
-                  <div class="policy-block-single text-center">
-                     <div class="text">
-                        <h3>73%</h3>
-                        <p>SAHİPLENDİRME ORANI</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <div class="policy-block-single text-center">
-                     <div class="text">
-                        <h3>259+</h3>
-                        <p>SAHİPLENİLEN PET</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <div class="policy-block-single text-center">
-                     <div class="text">
-                        <h3>39K</h3>
-                        <p>KAYITLI ÜYE</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <div class="policy-block-single text-center">
-                     <div class="text">
-                        <h3>45+</h3>
-                        <p>İLAN</p>
-                     </div>
+                     {% endif %}
                   </div>
                </div>
             </div>
-         </div>
+         {% endfor %}
       </div>
-   {% endif %}
+      <div class="swiper-pagination"></div>
+   </div>
+
    <!-- Promotion Block 1 -->
    <section class="pt--50 space-db--30">
       <h2 class="d-none">Promotion Block
@@ -436,4 +412,7 @@
       </div>
    {% endif %}
    <!-- slide Block 5 / Blog Slider -->
+{% endblock %}
+{% block custom_js %}
+   <script src="{% static '/js/index.js' %}"></script>
 {% endblock %}
