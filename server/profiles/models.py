@@ -18,17 +18,6 @@ class Profile(models.Model):
     phone = PhoneNumberField(blank=True,null=True)
     waphone = PhoneNumberField(blank=True,null=True)
 
-    avatar = models.ImageField(default='profiles/profile_images/default.jpg', upload_to='profiles/profile_images')
-
-    def save(self, *args, **kwargs):
-        from PIL import Image
-        super().save()
-        img = Image.open(self.avatar.path)
-        if img.height > 100 or img.width > 100:
-            new_img = (100, 100)
-            img.thumbnail(new_img)
-            img.save(self.avatar.path)
-
     def __repr__(self):
         return f'<Profile{self.user.username} {self.phone}>'
 
