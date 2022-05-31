@@ -59,7 +59,7 @@
                      </div>
                      <!-- Products Tag & Category Meta -->
                      <div class="product-meta mt--30">
-                        <p><i class="fas fa-dog"></i>&nbsp;&nbsp;Tür: &nbsp;&nbsp;<span class="single-meta">{% get_pet_type pet.animal_type %}</span> 
+                        <p><i class="fas fa-dog"></i>&nbsp;&nbsp;Tür: &nbsp;&nbsp;<span class="single-meta">{% get_pet_type pet.animal_type.slug %}</span> 
                         </p>
                         <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk: &nbsp;&nbsp;<span class="single-meta">{{pet.breed}}</span></p>
                         <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Şehir: &nbsp;&nbsp;<span class="single-meta">{% get_city pet.city %}</span></p>
