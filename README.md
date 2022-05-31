@@ -1,5 +1,10 @@
+Project has created using <b>Django</b>.
+
+
+
 Set up Python dependencies from :
 `requirements.txt`
+
 
 
 Set up Django Environment in `server/.env` :
