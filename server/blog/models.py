@@ -12,9 +12,9 @@ class Post(models.Model):
 		('published','Published')
 	)
 	
-	title = models.CharField('Başlık',max_length=50)
-	slug = models.SlugField('Slug',max_length=50,unique_for_date='publish')
-	image = models.ImageField('Resim',upload_to='blog/posts')
+	title = models.CharField('Başlık',max_length=255)
+	slug = models.SlugField('Slug',max_length=255,unique_for_date='publish')
+	image = models.ImageField('Resim',upload_to='blog/posts',blank=True,null=True)
 	excerpt = models.CharField('Alt Başlık',max_length=255)
 	content = models.TextField('İçerik')
 	publish = models.DateTimeField('Yayınlama Tarihi',default=timezone.now)

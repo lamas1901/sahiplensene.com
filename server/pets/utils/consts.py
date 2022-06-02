@@ -86,10 +86,12 @@ CITIES = (
 
 ADVERT_CHOICES = (
 	('normal','Normal'),
-	('super','Süper'),
-	('platinum','Platinum'),
+	# ('super','Süper'),
+	# ('platinum','Platinum'),
 	('gold','Gold'),
-	('silver','Gümüş')
+	# ('silver','Gümüş'),
+	('marry','Eş Bul'),
+	('lost','Kayıp')
 )
 
 ADVERT_COLORS = {

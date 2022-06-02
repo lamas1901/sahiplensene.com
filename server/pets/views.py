@@ -14,7 +14,8 @@ from slugify import slugify
 import re
 import urllib
 
-from .models import Pet, Slide, VideoSlide
+from .utils import consts
+from .models import Pet, PetType, Slide, VideoSlide
 
 
 def about_us(request):
@@ -43,9 +44,13 @@ def home(request):
 	})
 
 
-def dashboard(request):
+def dashboard(request,type='normal'):
 
-	pets = Pet.objects.all()
+	type = type if type in [x[0] for x in consts.ADVERT_CHOICES] else type
+
+	pets = Pet.objects.filter(advert_type=type)
+	# test_pet = Pet.objects.first()
+	# print(test_pet.advert_type)
 
 	straight_filters = [
 		'city',
@@ -68,9 +73,9 @@ def dashboard(request):
 
 	# перебор простых фильтров
 	for filter_name in straight_filters:
-		if request.GET.get(filter_name) and request.GET.get(filter_name) != 'all':
+		if request.GET.get(filter_name):
 			_ = request.GET[filter_name]
-			pets = pets.filter(**{'animal_type' if filter_name == 'type' else filter_name:_})
+			pets = pets.filter(**{'animal_type' if filter_name == 'type' else filter_name:PetType.objects.get(slug=_)})
 			filter_values[filter_name] = _
 
 	# перебор диапозоновых фильтров
@@ -112,7 +117,12 @@ def dashboard(request):
 		pets = paginator.page(paginator.num_pages)
 
 
-	return render(request,'pets/dashboard.html',{'pets':pets,'filter_string':filter_string,'filter_values':filter_values})
+	return render(request,'pets/dashboard.html',{
+		'pets': pets,
+		'type': type,
+		'filter_string':filter_string,
+		'filter_values':filter_values}
+	)
 
 
 class PetDetailView(DetailView):
@@ -125,7 +135,7 @@ class PetDetailView(DetailView):
 
 class PetAddView(CreateView,LoginRequiredMixin):
 	model = Pet
-	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo']
+	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo','description']
 	template_name = 'pets/pet-add.html'
 
 	def get_form(self, form_class=None):
@@ -146,7 +156,7 @@ class PetAddView(CreateView,LoginRequiredMixin):
 
 class PetEditView(UpdateView,LoginRequiredMixin):
 	model = Pet
-	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo']
+	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo','description']
 	template_name = 'pets/pet-add.html'
 
 	def get_form(self, form_class=None):

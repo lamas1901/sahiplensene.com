@@ -31,7 +31,9 @@
                <div class="single-footer-content">
                   <ul class="footer-list">
                      <li><a href="{% url 'pets:home' %}">Ana Sayfa</a></li>
-                     <li><a href="{% url 'pets:dashboard' %}">İlanlar</a></li>
+                     <li><a href="{% url 'pets:dashboard' %}">Hayvan Sahiplen</a></li>
+                     <li><a href="{% url 'pets:dashboard' 'marry' %}">Eş Bul</a></li>
+                     <li><a href="{% url 'pets:dashboard' 'lost' %}">Kayıp Hayvanını Bul</a></li>
                      <li><a href="{% url 'blog:posts' %}">Blog</a></li>
                      <li><a href="{% url 'pets:contact-us' %}">İletişim</a></li>
                      <li><a href="{% url 'pets:about-us' %}">Hakkımızda</a></li>

@@ -131,7 +131,13 @@
                            <a href="{% url 'blog:posts' %}" class="mainmenu__link">Blog</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">İlanlar</a>
+                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">Sahiplen</a>
+                        </li>
+                        <li class="mainmenu__item ">
+                           <a href="{% url 'pets:dashboard' 'marry' %}" class="mainmenu__link">Eş Bul</a>
+                        </li>
+                        <li class="mainmenu__item ">
+                           <a href="{% url 'pets:dashboard' 'lost' %}" class="mainmenu__link">Kayıp Hayvanlar</a>
                         </li>
                         <li class="mainmenu__item ">
                            <a href="{% url 'pets:about-us' %}" class="mainmenu__link">Hakkımızda</a>

@@ -2,219 +2,199 @@
 {% load static %}
 {% load utils %}
 {% block title %}
-	Evcil Hayvan İlanları
+Evcil Hayvan İlanları
 {% endblock %}
 {% block content %}
-	<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
-	   <div class="container">
-	      <ol class="breadcrumb">
-	         <li class="breadcrumb-item"><a href="index.html">Ana Sayfa</a></li>
-	         <li class="breadcrumb-item active" aria-current="page">Evcil Hayvan İlanları</li>
-	      </ol>
-	   </div>
-	</nav>
-	<main class="section-padding shop-page-section">
-	   <div class="container">
-	      <div class="row">
-	         <div class="col-lg-8 col-xl-9 order-lg-2 mb--40">
-	            <div class="shop-toolbar mb--30">
-	               <div class="row align-items-center">
-	                  <div class="col-5 col-md-3 col-xl-4">
-	                     <!-- Product View Mode -->
-	                     <div class="product-view-mode">
-	                        <a href="#" class="sortting-btn" data-bs-target="list "><i class="fas fa-list"></i></a>
-	                        <a href="#" class="sortting-btn  active" data-bs-target="grid"><i class="fas fa-th"></i></a>
-	                     </div>
-	                  </div>
-	                  <div class="col-12 col-md-9 col-xl-8 mt-3 mt-md-0  pe-md-0">
-	                     <div class="sorting-selection">
-	                        <div class="row align-items-center ps-md-0 pe-md-0 g-0">
-	                           <div style="text-align: right;">
-	                           	{% if pets %}
-		                           	{% define 8 as last %}
-		                           	{% if pets.paginator.num_pages|add:last > pets.paginator.num_pages %}
-		                           		{% define pets.paginator.num_pages|add:-1 as last %}
-		                           	{% endif %}
-	                              	{{ pets.paginator.num_pages }}'den {{ pets.number }}–{{ pets.number|add:last }}
-	                              {% else %}
-	                              	0
-	                              {% endif %}
-                              	sonuç
-	                           </div>
-	                        </div>
-	                     </div>
-	                  </div>
-	               </div>
-	            </div>
-	            <div class="shop-product-wrap grid with-pagination row border grid-four-column  me-0 ms-0 g-0">
-		            {% if pets %}	
-		            	{% for pet in pets %}
-			               <div class="col-lg-4 col-sm-6">
-			                  <div class="pm-product  ">
-			                     <a style="padding:5px" class="d-block position-relative" href="{{ pet.get_absolute_url }}">
-				                     <img 
-				                     	style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" 
-				                     	src="{{pet.photo.url}}" alt="">
-					                     {% if pet.advert_type != 'normal' %}
-										   <span 
-										      class="onsale-badge" 
-										      style="background: {% get_advert_level_color pet.advert_type %} !important">
-										      {% get_advert_level pet.advert_type %}
-										   </span>
-										{% endif %}
-			                     </a>
-			                     <div class="content">
-			                        <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
-			                        <p class="font-weight-500 text-muted">{% get_pet_type pet.animal_type %}</p>
-			                        <div class="price text-red">
-			                           <span>
-				                        	{% if pet.price %}
-					                           ${{pet.price}}
-					                        {% else %}
-					                        	BEDAVA
-				                        	{% endif %}
-			                           </span>
-			                        </div>
-			                        <div class="btn-block grid-btn">
-			                           <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded btn-mid"  >İncele</a>
-			                        </div>
-			                        <div class="card-list-content ">
-			                           <article>
-			                              <p>{{ pet.description|truncatechars:100 }}...
-			                              </p>
-			                           </article>
-			                           <div class="btn-block d-flex">
-			                              <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid"  >İncele</a>
-			                           </div>
-			                        </div>
-			                     </div>
-			                  </div>
-			               </div>
-		            	{% endfor %}
-		            {% else %}
-		            	<div class="p-5 text-center" style="min-height: 50vh;">
-			            	<h2><i class="fas fa-poo"></i> Maalesef evcil hayvan bulamadık</h2>
-			            	<p class="text-muted">Başka filtre deneyiniz...</p>
-		            	</div>
-		            {% endif %}
-	            </div>
-	            <div class="mt--30">
-	               {% pagination pets filter_string %}
-	            </div>
-	         </div>
-	         <div class="col-lg-4 col-xl-3 order-lg-1">
-	            <form class="sidebar-widget" action=".">
-		            <h2 class="sidebar-title">Arama Filtreleri</h2>
-                  <div class="d-block">
-                  	<div class="single-sidebar my-3">
-                  		<div class="my-3">
-	                     	{% get_cities as cities %}
-		                     <div>Anahtar kelime:</div>
-		                     <input type="text" name="keyword" class="form-control" value="{{filter_values.keyword}}"/>
-	                  	</div>
-		                  <div>Boy (sm)</div>
-		                  <div class="range-slider pt--10">
-		                     <div 
-		                     	class="pm-range-slider" 
-		                     	id="range-slider-height" 
-		                     	data-from="0" 
-		                     	data-to="200" 
-		                     	data-min="{% if filter_values.height.0 %}{{filter_values.height.0}}{% else %}10{% endif %}" 
-		                     	data-max="{% if filter_values.height.1 %}{{filter_values.height.1}}{% else %}200{% endif %}"></div>
-		                  </div>
-			               <div class="slider-price">
-			                  <p>
-			                     <input style="border: none; outline: none" type="text" id="range-slider-height-amount" name="height" class="text-center w-100" readonly>
-			                  </p>
-			               </div>
-		               </div>
-		               <div class="single-sidebar my-3">
-		                  <div>Yaş</div>
-		                  <div class="range-slider pt--10">
-		                     <div 
-		                     	class="pm-range-slider" 
-		                     	id="range-slider-age" 
-		                     	data-from="0" 
-		                     	data-to="50" 
-		                     	data-min="{% if filter_values.age.0 %}{{filter_values.age.0}}{% else %}1{% endif %}" 
-		                     	data-max="{% if filter_values.age.1 %}{{filter_values.age.1}}{% else %}50{% endif %}"></div>
-		                  </div>
-			               <div class="slider-price">
-			                  <p>
-			                     <input style="border: none; outline: none" type="text" id="range-slider-age-amount" name="age" class="text-center w-100" readonly>
-			                  </p>
-			               </div>
-		               </div>
-                  	<div class="my-3">
-                     	{% get_cities as cities %}
-	                     <div>İl:</div>
-	                     <select id="input-sort" name="city" class="form-control d-block">
-                     		<option value="all">Hepsi</option>
-	                     	{% for city in cities %}
-		                        <option value="{{city.0}}" {% if city.0 == filter_values.city %}selected {% endif %}>{{city.1}}</option>
-	                     	{% endfor %}
-	                     </select>
-                  	</div>
-                  	<div class="my-3 row">
-                  		<div class="col-6">
-		                     <div>Cins:</div>
-		                     <select id="input-sort" name="sex" class="form-control d-block">
-			                     <option value="all">Hepsi</option>
-		                        <option value="male" {% if filter_values.sex == 'male' %}selected {% endif %}>Erkek</option>
-		                        <option value="female" {% if filter_values.sex == 'female' %}selected {% endif %}>Dişi</option>
-		                     </select>
-                  		</div>
-                  		<div class="col-6">
-		                     <div>Tür:</div>
-		                     <select id="input-sort" name="type" class="form-control d-block">
-		                     	{% get_pet_types as animal_types %}
-	                     		<option value="all">Hepsi</option>
-		                     	{% for type in animal_types %}
-			                        <option value="{{type.slug}}" {% if type.slug == filter_values.type %}selected {% endif %}>{{type.name}}</option>
-		                     	{% endfor %}
-		                     </select>
-                  		</div>
-                  	</div>
-                  	<div class="my-3">
-	                     <div>Sırala:</div>
-	                     <select id="input-sort" name="sort" class="form-control d-block">
-	                        <option value="price" {% if filter_values.sort == 'price' %} selected {% endif %}>Fiyat (Büyüyen)</option>
-	                        <option value="-price" {% if filter_values.sort == '-price' %} selected {% endif %}>Fiyat (Azalan)</option>
-	                        <option value="age" {% if filter_values.sort == 'age' %} selected {% endif %}>Yaş (Büyüyen)</option>
-	                        <option value="-age" {% if filter_values.sort == '-age' %} selected {% endif %}>Yaş (Azalan)</option>
-	                     </select>
-                  	</div>
-                  </div>
-	               <div class="single-sidebar my-3">
-	                  <div>Fiyat</div>
-	                  <div class="range-slider pt--10">
-	                     <div 
-	                     	class="pm-range-slider" 
-	                     	id="range-slider-price" 
-	                     	data-from="0" 
-	                     	data-to="500" 
-	                     	data-name="price"
-	                     	data-min="{% if filter_values.price.0 %}{{filter_values.price.0}}{% else %}0{% endif %}" 
-	                     	data-max="{% if filter_values.price.1 %}{{filter_values.price.1}}{% else %}500{% endif %}">
-                     	</div>
-	                  </div>
-		               <div class="slider-price">
-		                  <p>
-		                     <input style="border: none; outline: none" type="text" id="range-slider-price-amount" name="price" class="text-center w-100" readonly>
-		                  </p>
-		               </div>
-	               </div>
-	               <div class="row g-1">
-	               	<div class="col-md-6">
-			               <button class="w-100 btn btn--primary mt-3" type="submit">Filtrele</button>
-	               	</div>
-	               	<div class="col-md-6">
-	               		<a class="w-100 btn btn--primary bg-dark mt-3" href="." type="submit">Filtre kaldır</a>
-	               	</div>
-	               </div>
-	            </form>
-	         </div>
-	      </div>
-	   </div>
-	</main>
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Evcil Hayvan İlanları</li>
+        </ol>
+    </div>
+</nav>
+<main class="section-padding shop-page-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-9 order-lg-2 mb--40">
+                <div class="shop-toolbar mb--30">
+                    <div class="row align-items-center">
+                        <div class="col-5 col-md-3 col-xl-4">
+                            <!-- Product View Mode -->
+                            <div class="product-view-mode">
+                                <a href="#" class="sortting-btn" data-bs-target="list "><i class="fas fa-list"></i></a>
+                                <a href="#" class="sortting-btn  active" data-bs-target="grid"><i class="fas fa-th"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-9 col-xl-8 mt-3 mt-md-0  pe-md-0">
+                            <div class="sorting-selection">
+                                <div class="row align-items-center ps-md-0 pe-md-0 g-0">
+                                    <div style="text-align: right;">
+                                        {% if pets %}
+                                        {% define 8 as last %}
+                                        {% if pets.paginator.num_pages|add:last > pets.paginator.num_pages %}
+                                        {% define pets.paginator.num_pages|add:-1 as last %}
+                                        {% endif %}
+                                        {{ pets.paginator.num_pages }}'den {{ pets.number }}–{{ pets.number|add:last }}
+                                        {% else %}
+                                        0
+                                        {% endif %}
+                                        sonuç
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-product-wrap grid with-pagination row border grid-four-column  me-0 ms-0 g-0">
+                    {% if pets %}
+                    {% for pet in pets %}
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="pm-product  ">
+                            <a style="padding:5px" class="d-block position-relative" href="{{ pet.get_absolute_url }}">
+                                <img style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" src="{{pet.photo.url}}" alt="">
+                                {% if pet.advert_type != 'normal' %}
+                                <span class="onsale-badge" style="background: {% get_advert_level_color pet.advert_type %} !important">
+                                    {% get_advert_level pet.advert_type %}
+                                </span>
+                                {% endif %}
+                            </a>
+                            <div class="content">
+                                <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
+                                <p class="font-weight-500 text-muted">{% get_pet_type pet.animal_type.slug %}</p>
+                                <div class="price text-red">
+                                    <span>
+                                        {% if pet.price %}
+                                        ${{pet.price}}
+                                        {% else %}
+                                        BEDAVA
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="btn-block grid-btn">
+                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
+                                </div>
+                                <div class="card-list-content ">
+                                    <article>
+                                        <p>{{ pet.description|truncatechars:100 }}...
+                                        </p>
+                                    </article>
+                                    <div class="btn-block d-flex">
+                                        <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="p-5 text-center" style="min-height: 50vh;">
+                        <h2><i class="fas fa-poo"></i> Maalesef evcil hayvan bulamadık</h2>
+                        <p class="text-muted">Başka filtre deneyiniz...</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mt--30">
+                    {% pagination pets filter_string %}
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-3 order-lg-1">
+                <form class="sidebar-widget" action=".">
+                    <h2 class="sidebar-title">Arama Filtreleri</h2>
+                    <a class="w-100 btn btn--primary btn--primary {% if type != 'normal' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'normal' %}" type="submit">Sahiplendirme İlanları</a>
+                    <a class="w-100 btn btn--primary btn--primary {% if type != 'marry' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'marry' %}" type="submit">Eş Bul</a>
+                    <a class="w-100 btn btn--primary btn--primary {% if type != 'lost' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'lost' %}" type="submit">Kayıp Hayvanlar</a>
+                    <div class="d-block">
+                        <div class="single-sidebar my-3">
+                            <div class="my-3">
+                                {% get_cities as cities %}
+                                <div>Anahtar kelime:</div>
+                                <input type="text" name="keyword" class="form-control" value="{{filter_values.keyword}}" />
+                            </div>
+                            <div>Boy (sm)</div>
+                            <div class="range-slider pt--10">
+                                <div class="pm-range-slider" id="range-slider-height" data-from="0" data-to="200" data-min="{% if filter_values.height.0 %}{{filter_values.height.0}}{% else %}0{% endif %}" data-max="{% if filter_values.height.1 %}{{filter_values.height.1}}{% else %}200{% endif %}"></div>
+                            </div>
+                            <div class="slider-price">
+                                <p>
+                                    <input style="border: none; outline: none" type="text" id="range-slider-height-amount" name="height" class="text-center w-100" readonly>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="single-sidebar my-3">
+                            <div>Yaş</div>
+                            <div class="range-slider pt--10">
+                                <div class="pm-range-slider" id="range-slider-age" data-from="0" data-to="50" data-min="{% if filter_values.age.0 %}{{filter_values.age.0}}{% else %}0{% endif %}" data-max="{% if filter_values.age.1 %}{{filter_values.age.1}}{% else %}50{% endif %}"></div>
+                            </div>
+                            <div class="slider-price">
+                                <p>
+                                    <input style="border: none; outline: none" type="text" id="range-slider-age-amount" name="age" class="text-center w-100" readonly>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            {% get_cities as cities %}
+                            <div>İl:</div>
+                            <select id="input-sort" name="city" class="form-control d-block">
+                                <option value="all">Hepsi</option>
+                                {% for city in cities %}
+                                <option value="{{city.0}}" {% if city.0 == filter_values.city %}selected {% endif %}>{{city.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="my-3 row">
+                            <div class="col-6">
+                                <div>Cins:</div>
+                                <select id="input-sort" name="sex" class="form-control d-block">
+                                    <option value="all">Hepsi</option>
+                                    <option value="male" {% if filter_values.sex == 'male' %}selected {% endif %}>Erkek</option>
+                                    <option value="female" {% if filter_values.sex == 'female' %}selected {% endif %}>Dişi</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <div>Tür:</div>
+                                <select id="input-sort" name="type" class="form-control d-block">
+                                    {% get_pet_types as animal_types %}
+                                    <option value="all">Hepsi</option>
+                                    {% for type in animal_types %}
+                                    <option value="{{type.slug}}" {% if type.slug == filter_values.type %}selected {% endif %}>{{type.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div>Sırala:</div>
+                            <select id="input-sort" name="sort" class="form-control d-block">
+                                <option value="price" {% if filter_values.sort == 'price' %} selected {% endif %}>Fiyat (Büyüyen)</option>
+                                <option value="-price" {% if filter_values.sort == '-price' %} selected {% endif %}>Fiyat (Azalan)</option>
+                                <option value="age" {% if filter_values.sort == 'age' %} selected {% endif %}>Yaş (Büyüyen)</option>
+                                <option value="-age" {% if filter_values.sort == '-age' %} selected {% endif %}>Yaş (Azalan)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="single-sidebar my-3">
+                        <div>Fiyat</div>
+                        <div class="range-slider pt--10">
+                            <div class="pm-range-slider" id="range-slider-price" data-from="0" data-to="500" data-name="price" data-min="{% if filter_values.price.0 %}{{filter_values.price.0}}{% else %}0{% endif %}" data-max="{% if filter_values.price.1 %}{{filter_values.price.1}}{% else %}500{% endif %}">
+                            </div>
+                        </div>
+                        <div class="slider-price">
+                            <p>
+                                <input style="border: none; outline: none" type="text" id="range-slider-price-amount" name="price" class="text-center w-100" readonly>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-1">
+                        <div class="col-md-6">
+                            <button class="w-100 btn btn--primary mt-3" type="submit">Filtrele</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="w-100 btn btn--primary bg-dark mt-3" href="." type="submit">Filtre kaldır</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}

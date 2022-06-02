@@ -7,6 +7,7 @@ app_name = 'pets'
 urlpatterns = [
 	path('',views.home,name='home'),
 	path('dashboard/',views.dashboard,name='dashboard'),
+	path('dashboard/<str:type>/',views.dashboard,name='dashboard'),
 	path('pet/<slug:slug>/<int:pk>',views.PetDetailView.as_view(),name='pet'),
 	path('pet_add/',views.PetAddView.as_view(),name='pet-add'),
 	path('pet_edit/<slug:pk>',views.PetEditView.as_view(),name='pet-edit'),
