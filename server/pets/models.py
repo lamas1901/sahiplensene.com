@@ -38,9 +38,9 @@ class Pet(models.Model):
 	photo = models.ImageField('Görüntü',upload_to='pets/photos')
 	description = models.TextField('Açıklama')
 
-	special_phone = PhoneNumberField(blank=True,null=True)
-	special_waphone = PhoneNumberField(blank=True,null=True)
-	special_ownername = models.CharField('Hayvan Adı',max_length=255,blank=True,null=True)
+	special_phone = PhoneNumberField('Özel Sahip Numarası',blank=True,null=True)
+	special_waphone = PhoneNumberField('Özel Sahip Whatsapp Numarası',blank=True,null=True)
+	special_ownername = models.CharField('Özel Sahip Adı',max_length=255,blank=True,null=True)
 
 	def get_absolute_url(self):
 		return reverse('pets:pet', args=[

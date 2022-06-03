@@ -47,13 +47,23 @@
                      </div>
                      <!-- Amount and Add to cart -->
                      <div class="row">
+                        {% if pet.special_phone %}
+                           {% set phone = pet.special_phone %}
+                        {% else %}
+                           {% set phone = pet.owner.profile.phone %}
+                        {% endif %}
+                        {% if pet.special_waphone %}
+                           {% set waphone = pet.special_waphone %}                           
+                        {% else %}
+                           {% set waphone = pet.owner.profile.waphone %}
+                        {% endif %}
                         <a 
                            class="m-1 col-6 d-block btn btn-rounded btn--primary text-white" 
-                           href='https://wa.me/{{ pet.owner.profile.waphone }}?text=Merhaba,%20sahiplensene.com%20üzerinden%20"{{pet.name}}"%20ilanı%20ile%20ilgili%20yazıyorum'>
+                           href='https://wa.me/{{ waphone }}?text=Merhaba,%20sahiplensene.com%20üzerinden%20"{{pet.name}}"%20ilanı%20ile%20ilgili%20yazıyorum'>
                            <i class="fab fa-whatsapp-square"></i>
                            &nbsp;&nbsp;Whatsapp
                         </a>
-                        <a class="m-1 col-6 d-block btn btn-rounded btn--info text-white" href="tel:{{pet.owner.profile.phone}}">
+                        <a class="m-1 col-6 d-block btn btn-rounded btn--info text-white" href="tel:{{ phone }}">
                            <i class="fas fa-phone"></i>&nbsp;&nbsp;Hattan ara
                         </a>
                      </div>

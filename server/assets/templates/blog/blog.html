@@ -21,9 +21,6 @@
                   {% for post in posts %}
                      <div class="col-xl-4 col-md-6 mb--30">                     
                         <div class="blog-post">
-                           <a class="position-relative d-block" href="{{ post.get_absolute_url }}">
-                              <img style="border-radius: 0.3em;height: 200px !important; width: 100% !important; object-fit: cover !important;" src="{{ post.image.url }}" alt="">
-                           </a>
                            <div class="blog-content mt--15 text-center">
                               <header>
                                  <h3 class="blog-title"> <a href="{{ post.get_absolute_url }}">{{ post.title}}</a></h3>
