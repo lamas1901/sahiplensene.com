@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 from .utils import consts
 
 
@@ -28,13 +30,17 @@ class Pet(models.Model):
 	price = models.IntegerField('İlan Fiyatı (Bedava ise 0)')
 	animal_type = models.ForeignKey(PetType,on_delete=models.CASCADE)
 	age = models.IntegerField('Hayvan Yaşı')
-	color = models.CharField('Hayvan Rengi',max_length=50)
-	height = models.IntegerField('Hayvan Boyu',)
+	color = models.CharField('Hayvan Rengi',max_length=50,blank=True,null=True)
+	height = models.IntegerField('Hayvan Boyu',blank=True,null=True)
 	sex = models.CharField('Hayvan Cinsi',max_length=50,choices=consts.SEX_CHOICES,default='male')
 	breed = models.CharField('Hayvan Irkı',max_length=255)
 	city = models.CharField('Bulunduğu Şehir',max_length=50,choices=consts.CITIES,default=consts.CITIES[0][0])
 	photo = models.ImageField('Görüntü',upload_to='pets/photos')
 	description = models.TextField('Açıklama')
+
+	special_phone = PhoneNumberField(blank=True,null=True)
+	special_waphone = PhoneNumberField(blank=True,null=True)
+	special_ownername = models.CharField('Hayvan Adı',max_length=255,blank=True,owner=True)
 
 	def get_absolute_url(self):
 		return reverse('pets:pet', args=[

@@ -14,6 +14,16 @@
       <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
       <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
       <title>Sahiplensene {% block title %}{% endblock %}</title>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-222256764-5">
+      </script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', 'UA-222256764-5');
+      </script>
    </head>
    <body>
       <div class="site-wrapper">
