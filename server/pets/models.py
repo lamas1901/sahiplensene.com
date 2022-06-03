@@ -40,7 +40,7 @@ class Pet(models.Model):
 
 	special_phone = PhoneNumberField(blank=True,null=True)
 	special_waphone = PhoneNumberField(blank=True,null=True)
-	special_ownername = models.CharField('Hayvan Adı',max_length=255,blank=True,owner=True)
+	special_ownername = models.CharField('Hayvan Adı',max_length=255,blank=True,null=True)
 
 	def get_absolute_url(self):
 		return reverse('pets:pet', args=[
