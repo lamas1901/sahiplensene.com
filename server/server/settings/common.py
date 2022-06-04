@@ -15,7 +15,8 @@ INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
     'pets.apps.PetsConfig',
     'blog.apps.BlogConfig',
-    'taggit'
+    'taggit',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

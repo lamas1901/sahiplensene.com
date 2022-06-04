@@ -30,7 +30,11 @@
                         <h3 style="font-size: 3em">{{ pet.name }}</h3>
                      </div>
                      {% if request.user == pet.owner %}
-                        <a href="{% url 'pets:pet-edit' pet.id %}" class="btn btn-info text-white">Düzenle</a>
+                        <a href="{% url 'pets:pet-edit' pet.id %}" class="btn btn-info text-white">
+                           <i class="fas fa-edit"></i>
+                           &nbsp;
+                           Düzenle
+                        </a>
                      {% endif %}
                      <!-- Price -->
                      <p class="price" style="font-size:4em">
@@ -42,7 +46,15 @@
                      </p>
                      <hr>
                      <div class="product-meta mt--30">
-                        <p><i class="fas fa-user"></i>&nbsp;&nbsp;Sahip adı: <span class="single-meta"> {{pet.owner.first_name}} {{ pet.owner.last_name }}</span> 
+                        <p><i class="fas fa-user"></i>&nbsp;&nbsp;Sahip adı: 
+                           <span class="single-meta"> 
+                              {% if pet.special_ownername %}
+                                 {{ pet.special_ownername }}
+                              {% else %}
+                                 {{pet.owner.first_name}} {{ pet.owner.last_name }}
+                              {% endif %}
+
+                           </span> 
                         </p>
                      </div>
                      <!-- Amount and Add to cart -->
@@ -59,9 +71,14 @@
                      </div>
                      <!-- Products Tag & Category Meta -->
                      <div class="product-meta mt--30">
-                        <p><i class="fas fa-dog"></i>&nbsp;&nbsp;Tür: &nbsp;&nbsp;<span class="single-meta">{% get_pet_type pet.animal_type.slug %}</span> 
+                        <p>
+                           <i class="fas fa-dog"></i>
+                           &nbsp;&nbsp;Tür: &nbsp;&nbsp;
+                           <span class="single-meta">
+                              {% get_pet_type pet.animal_type.slug %}
+                           </span> 
                         </p>
-                        <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk: &nbsp;&nbsp;<span class="single-meta">{{pet.breed}}</span></p>
+                        <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk: &nbsp;&nbsp;<span class="single-meta">{{pet.breed|is_undefined}}</span></p>
                         <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Şehir: &nbsp;&nbsp;<span class="single-meta">{% get_city pet.city %}</span></p>
                      </div>
                   </div>
@@ -85,23 +102,23 @@
                            <table class="table" style="width: 100%;">
                               <tr>
                                  <td><b>Tür</b></td>
-                                 <td>{% get_pet_type pet.animal_type %}</td>
+                                 <td>{% get_pet_type pet.animal_type.slug %}</td>
                               </tr>
                               <tr>
                                  <td><b>Irk</b></td>
-                                 <td>{{pet.breed}}</td>
+                                 <td>{{pet.breed|is_undefined}}</td>
                               </tr>
                               <tr>
                                  <td><b>Yaş</b></td>
-                                 <td>{{pet.age}}</td>
+                                 <td>{{pet.age|is_undefined}}</td>
                               </tr>
                               <tr>
                                  <td><b>Renk</b></td>
-                                 <td>{{pet.color}}</td>
+                                 <td>{{pet.color|is_undefined}}</td>
                               </tr>
                               <tr>
                                  <td><b>Boy</b></td>
-                                 <td>{{pet.height}}</td>
+                                 <td>{{pet.height|is_undefined}}</td>
                               </tr>
                               <tr>
                                  <td><b>Cins</b></td>

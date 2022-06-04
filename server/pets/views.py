@@ -8,14 +8,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
+from django_filters.views import FilterView
 from slugify import slugify
 
 
 import re
 import urllib
 
-from .utils import consts
+from .filters import PetFilter
 from .models import Pet, PetType, Slide, VideoSlide
+from .utils import consts
 
 
 def about_us(request):
@@ -37,11 +39,15 @@ def home(request):
 	return render(request,'pets/home.html',{
 		'slides':slides,
 		'video_slides': video_slides,
-		'super_pets':super_pets,
-		'platinum_pets':platinum_pets,
 		'gold_pets':gold_pets,
-		'silver_pets':silver_pets
 	})
+
+class PetListView(FilterView):
+	model = Pet
+	paginate_by = 6
+	context_object_name = 'pets'
+	template_name = 'pets/dashboard.html'
+	filter_class = PetFilter
 
 
 def dashboard(request,type='normal'):
@@ -49,13 +55,11 @@ def dashboard(request,type='normal'):
 	type = type if type in [x[0] for x in consts.ADVERT_CHOICES] else type
 
 	pets = Pet.objects.filter(advert_type=type)
-	# test_pet = Pet.objects.first()
-	# print(test_pet.advert_type)
 
 	straight_filters = [
 		'city',
 		'sex',
-		'type'
+		'animal_type'
 	]
 	range_filters = [
 		'price',
@@ -66,34 +70,38 @@ def dashboard(request,type='normal'):
 	# переменная для передачи в шаблон для сохранение состояний переключателей фильтров
 	filter_values = {}
 
-	# применить фильтр сортировки
+	# sorting
 	if request.GET.get('keyword'):
-		pets = pets.filter(name__icontains=request.GET['keyword'])
+		pets = pets.filter(name__contains=request.GET['keyword'])
 		filter_values['keyword'] = request.GET['keyword']
 
-	# перебор простых фильтров
+	# straight filters
 	for filter_name in straight_filters:
 		if request.GET.get(filter_name):
-			_ = request.GET[filter_name]
-			pets = pets.filter(**{'animal_type' if filter_name == 'type' else filter_name:PetType.objects.get(slug=_)})
-			filter_values[filter_name] = _
+			filter_value = request.GET[filter_name]
+			if filter_name=='animal_type':
+				pets = pets.filter(animal_type=PetType.objects.get(slug=filter_value)) if filter_value else pets
+			else:
+				pets = pets.filter(**{filter_name:filter_value}) if filter_value else pets
+			filter_values[filter_name] = filter_value
 
-	# перебор диапозоновых фильтров
+	# range filters
 	for filter_name in range_filters:		
 		if request.GET.get(filter_name):
-			_ = re.findall(r'(\d+|Bedava)',request.GET[filter_name])
+			filter_range = re.findall(r'(\d+|Bedava)',request.GET[filter_name])
 			ismax = '+' in request.GET[filter_name]
 			
-			if len(_)==2:
-				_[0] = _[0] if _[0].isnumeric() else 0
-				pets = pets.filter(
-					**{
-						f'{filter_name}__gte':_[0],
-						f'{filter_name}__lte':_[1] if not ismax else 999999
-					}
-				)
+			if len(filter_range)==2:
+				filter_range[0] = filter_range[0] if filter_range[0].isnumeric() else '0'
+				if int(filter_range[0]) and (not ismax):
+					pets = pets.filter(
+						**{
+							f'{filter_name}__gte':int(filter_range[0]),
+							f'{filter_name}__lte':int(filter_range[1]) if not ismax else 999999
+						}
+					)
 			
-			filter_values[filter_name] = _
+			filter_values[filter_name] = filter_range
 
 	# применить фильтр сортировки
 	if request.GET.get('sort') and getattr(Pet,request.GET.get('sort').replace('-',''),False):
@@ -118,10 +126,11 @@ def dashboard(request,type='normal'):
 
 
 	return render(request,'pets/dashboard.html',{
-		'pets': pets,
-		'type': type,
-		'filter_string':filter_string,
-		'filter_values':filter_values}
+			'pets': pets,
+			'type': type,
+			'filter_string':filter_string,
+			'filter_values':filter_values
+		}
 	)
 
 

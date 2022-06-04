@@ -464,7 +464,7 @@ jQuery(document).ready(function () {
 
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
-        pageLanguage: 'en',
+        pageLanguage: 'tr',
         layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT
     },
         'google_translate_element'

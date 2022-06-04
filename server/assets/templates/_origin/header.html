@@ -7,7 +7,7 @@
          <div class="container">
             <div class="row align-items-center">
                <div class="col-sm-6 text-center text-sm-start">
-                  <p class="font-weight-300">sahiplensene.com</p>
+                  <p class="font-weight-300 notranslate">sahiplensene.com</p>
                </div>
                <div class="col-sm-6">
                   <div class="header-top-nav right-nav">
@@ -15,8 +15,30 @@
                         <span>Dil: </span><a class="slide-down--btn" href="#" role="button"> Dil Seçiniz<i class="ion-ios-arrow-down"></i>
                         </a>
                         <ul class="dropdown-list slide-down--item">
-                           <li><a class="lang-select notranslate" data-lang="en" href="#googtrans(en|en)">İngilizce</a></li>
-                           <li><a class="lang-select notranslate" data-lang="ru" href="#googtrans(en|ru)">Rusça</a></li>
+                           <li>
+                              <a class="lang-select notranslate" data-lang="tr" href="#googtrans(tr|tr)">
+                                 <img style="height: 20px" src="{% static 'image/flags/turkey.png' %}">
+                                 Türkçe
+                              </a>
+                           </li>
+                           <li>
+                              <a class="lang-select notranslate" data-lang="en" href="#googtrans(tr|en)">
+                                 <img style="height: 20px" src="{% static 'image/flags/usa.png' %}">
+                                 English
+                              </a>
+                           </li>
+                           <li>
+                              <a class="lang-select notranslate" data-lang="ru" href="#googtrans(tr|ru)">
+                                 <img style="height: 20px" src="{% static 'image/flags/russia.png' %}">
+                                 Русский
+                              </a>
+                           </li>
+                           <li>
+                              <a class="lang-select notranslate" data-lang="de" href="#googtrans(tr|de)">
+                                 <img style="height: 20px" src="{% static 'image/flags/germany.png' %}">
+                                 Deutsch
+                              </a>
+                           </li>
                         </ul>
                      </div>
                   </div>
@@ -41,7 +63,7 @@
                      <input type="text" name="keyword" placeholder="Evil hayvanını bul...">
                      <div class="search-form__group search-form__group--select">
                         <select name="city" id="searchCategory" class="search-form__select nice-select">
-                           <option value="all">Bütün İller</option> 
+                           <option value="">Bütün İller</option> 
                            {% get_cities as cities %}
                            {% for city in cities %}
                               <option value="{{city.0}}">{{city.1}}</option>                              
@@ -55,9 +77,10 @@
                <div class="col-lg-4 col-md-5 col-sm-8 order-2 order-md-3">
                   <div class="header-widget-2 text-center text-sm-end ">
                      <div class="call-widget">
-                        <p>Bize Ulaşın: <i class="icon ion-ios-telephone"></i>
-                           <span class="font-weight-mid">
-                              <a href="tel:{% get_const 'PHONE_VALUE' %}">{% get_const 'PHONE_SHOW' %}</a>
+                        <p>
+                           <i class="fas fa-envelope"></i>
+                           <span class="font-weight-mid notranslate">
+                              <a href="mailto:{% get_const 'CONTACT_EMAIL' %}">{% get_const 'CONTACT_EMAIL' %}</a>
                            </span>
                         </p>
                      </div>
@@ -77,7 +100,7 @@
                            </li>
                         {% else %}
                            <li>
-                              <a href="{% url 'profiles:profile' %}">
+                              <a class="notranslate" href="{% url 'profiles:profile' %}">
                                  {{ request.user.username }}
                               </a>
                            </li>
@@ -128,16 +151,28 @@
                            <a href="{% url 'pets:home' %}" class="mainmenu__link">Ana Sayfa</a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="{% url 'blog:posts' %}" class="mainmenu__link">Blog</a>
+                           <a href="{% url 'blog:posts' %}" class="mainmenu__link">
+                              <i class="fas fa-rss"></i>&nbsp;
+                              Blog
+                           </a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">Sahiplen</a>
+                           <a href="{% url 'pets:dashboard' %}" class="mainmenu__link">
+                              <i class="fas fa-paw"></i>&nbsp;
+                              Sahiplen
+                           </a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="{% url 'pets:dashboard' 'marry' %}" class="mainmenu__link">Eş Bul</a>
+                           <a href="{% url 'pets:dashboard' 'marry' %}" class="mainmenu__link">
+                              <i class="fas fa-grin-hearts"></i>&nbsp;
+                              Eş Bul
+                           </a>
                         </li>
                         <li class="mainmenu__item ">
-                           <a href="{% url 'pets:dashboard' 'lost' %}" class="mainmenu__link">Kayıp Hayvanlar</a>
+                           <a href="{% url 'pets:dashboard' 'lost' %}" class="mainmenu__link">
+                              <i class="fal fa-file-search"></i>&nbsp;
+                              Kayıp Hayvanlar
+                           </a>
                         </li>
                         <li class="mainmenu__item ">
                            <a href="{% url 'pets:about-us' %}" class="mainmenu__link">Hakkımızda</a>

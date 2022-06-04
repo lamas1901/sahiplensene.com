@@ -13,6 +13,10 @@ from blog.models import Post
 
 register = template.Library()
 
+@register.filter
+def is_undefined(text):
+	return text if text else 'Belirtilmedi'
+
 @register.filter(name='markdown')
 def makrdown_format(text):
 	return mark_safe(markdown.markdown(text))

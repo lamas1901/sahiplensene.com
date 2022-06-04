@@ -1,3 +1,7 @@
+body{
+    position: absolute !important;
+    top: 0 !important;
+}
 /******************************
 
 |--- Fonts
@@ -7067,7 +7071,7 @@ h6 {
     top: 100%;
     right: 0px;
     display: none;
-    z-index: 99;
+    z-index: 999;
 }
 
 .header-widget-2 {

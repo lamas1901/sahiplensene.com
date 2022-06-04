@@ -107,7 +107,5 @@ SEX_CHOICES = (
 )
 
 SHOP_DATA = {
-	'PHONE_VALUE':'+905392405639',
-	'PHONE_SHOW':'+90 (539) 240 56 39',
-	'EMAIL':'contact@sahiplensene.com'
+	'CONTACT_EMAIL':'contact@sahiplensene.com'
 }

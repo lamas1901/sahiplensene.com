@@ -103,7 +103,7 @@ Evcil Hayvan İlanları
                     <h2 class="sidebar-title">Arama Filtreleri</h2>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'normal' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'normal' %}" type="submit">Sahiplendirme İlanları</a>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'marry' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'marry' %}" type="submit">Eş Bul</a>
-                    <a class="w-100 btn btn--primary btn--primary {% if type != 'lost' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'lost' %}" type="submit">Kayıp Hayvanlar</a>
+                    <a class="w-100 btn btn--primary btn--primary {% if type != 'lost' %}bg-dark{% endif %} mt-3" href="#" type="submit">Kayıp Hayvanlar</a>
                     <div class="d-block">
                         <div class="single-sidebar my-3">
                             <div class="my-3">
@@ -136,7 +136,7 @@ Evcil Hayvan İlanları
                             {% get_cities as cities %}
                             <div>İl:</div>
                             <select id="input-sort" name="city" class="form-control d-block">
-                                <option value="all">Hepsi</option>
+                                <option value="">Hepsi</option>
                                 {% for city in cities %}
                                 <option value="{{city.0}}" {% if city.0 == filter_values.city %}selected {% endif %}>{{city.1}}</option>
                                 {% endfor %}
@@ -146,18 +146,24 @@ Evcil Hayvan İlanları
                             <div class="col-6">
                                 <div>Cins:</div>
                                 <select id="input-sort" name="sex" class="form-control d-block">
-                                    <option value="all">Hepsi</option>
+                                    <option value="">Hepsi</option>
                                     <option value="male" {% if filter_values.sex == 'male' %}selected {% endif %}>Erkek</option>
                                     <option value="female" {% if filter_values.sex == 'female' %}selected {% endif %}>Dişi</option>
                                 </select>
                             </div>
                             <div class="col-6">
                                 <div>Tür:</div>
-                                <select id="input-sort" name="type" class="form-control d-block">
+                                <select id="input-sort" name="animal_type" class="form-control d-block">
                                     {% get_pet_types as animal_types %}
-                                    <option value="all">Hepsi</option>
-                                    {% for type in animal_types %}
-                                    <option value="{{type.slug}}" {% if type.slug == filter_values.type %}selected {% endif %}>{{type.name}}</option>
+                                    <option value="">Hepsi</option>
+                                    {% for animal_type in animal_types %}
+                                        <option 
+                                            value="{{animal_type.slug}}" 
+                                            {% if animal_type.slug == filter_values.animal_type %}
+                                                selected 
+                                            {% endif %}>
+                                            {{animal_type.name}}
+                                        </option>
                                     {% endfor %}
                                 </select>
                             </div>

@@ -1,14 +1,14 @@
 {% extends '../_origin/base.html' %}
 {% load static %}
 {% block title %}
-   Your pets
+   Hayvan İlanlarınız
 {% endblock %}
 {% block content %}
    <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
       <div class="container">
          <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'pets:home' %}">Ana Sayfa</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+            <li class="breadcrumb-item active" aria-current="page">İlanlarınız</li>
          </ol>
       </div>
    </nav>
@@ -47,7 +47,7 @@
                                           </a>
                                        </td>
                                        <td class="pro-thumbnail"><a href="{{ pet.get_absolute_url }}"><img style="height:50px;width:50px;object-fit:cover;" src="{{ pet.photo.url }}" alt="Product"></a></td>
-                                       <td class="pro-title"><a href="{{ pet.get_absolute_url }}">{{ pet.name }}</a></td>
+                                       <td class="pro-title notranslate"><a href="{{ pet.get_absolute_url }}">{{ pet.name }}</a></td>
                                        <td class="pro-price"><span>{{ pet.breed }}</span></td>
                                        <td class="pro-subtotal"><span>₺{{ pet.price }}</span></td>
                                     </tr>
@@ -57,9 +57,16 @@
                      {% else %}
                         <h3 class="mb-5">Şuanda aktif ilanınız bulunmuyor</h3>
                      {% endif %}
-                     <div>
-                        <a href="{% url 'pets:pet-add' %}" class="d-block mt-3 btn btn--primary">
-                           İlan ver
+                     <div class="mt-5">
+                        <h5 class="text-dark">İlan Ver:</h5>
+                        <a href="{% url 'pets:pet-add' %}" class="mt-3 btn btn--primary">
+                           Sahiplendirme
+                        </a>
+                        <a href="{% url 'pets:pet-add' %}" class="mt-3 btn btn--primary">
+                           Eş Bulma
+                        </a>
+                        <a href="{% url 'pets:pet-add' %}" class="mt-3 btn btn--primary">
+                           Kayıp Hayvan
                         </a>
                      </div>
                   </div>
