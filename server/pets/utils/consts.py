@@ -91,7 +91,7 @@ ADVERT_CHOICES = (
 	('gold','Gold'),
 	# ('silver','Gümüş'),
 	('marry','Eş Bul'),
-	('lost','Kayıp')
+	# ('lost','Kayıp')
 )
 
 ADVERT_COLORS = {
