@@ -1,0 +1,81 @@
+{% extends '../_origin/base.html' %}
+{% load macros %}
+{% load static %}
+{% load utils %}
+{% block title %}
+	Sıkça Sorulan Sorular
+{% endblock %}
+{% macro question title content number %}
+    <div class="accordion-item">
+      <h2 
+        class="accordion-header" 
+        id="heading{{number}}">
+        <button 
+          class="accordion-button collapsed " 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse{{number}}" 
+          aria-expanded="true" 
+          aria-controls="collapse{{number}}">
+          {{ title }}
+        </button>
+      </h2>
+      <div 
+        id="collapse{{number}}" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="heading{{number}}" 
+        data-bs-parent="#faq-accordeon">
+        <div class="accordion-body">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+{% endmacro %}
+{% block content %}
+	<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+		<div class="container">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{% url 'pets:home' %}">Ana Sayfa</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Sıkça Sorulan Sorular</li>
+			</ol>
+		</div>
+	</nav>
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="accordion" id="faq-accordeon">
+				    {% for q in page_obj %}
+					    {% define q.title as title %}
+					    {% define q.content as content %}
+					    {% define q.id as id %}
+					    {% use_macro question title content id %}
+				    {% endfor %}
+				</div>
+		    <div class="pagination">
+		        <span class="step-links">
+		        	<div class="my-3">
+			            <div class="mb-2">
+				            <span class="current">
+				                {{ page_obj.number }}'dan {{ page_obj.paginator.num_pages }} soru.
+				            </span>
+			            </div>
+			            {% if page_obj.has_previous %}
+				            <a class="btn-primary btn-sm" href="?page=1"><< İlk</a>
+				            <a class="btn-primary btn-sm" href="?page={{ page_obj.previous_page_number }}">Önceki</a>
+			            {% endif %}
+			            {% if page_obj.has_next %}
+				            <a class="btn-primary btn-sm" href="?page={{ page_obj.next_page_number }}">Sonraki</a>
+				            <a class="btn-primary btn-sm" href="?page={{ page_obj.paginator.num_pages }}">Son >></a>
+			            {% endif %}
+		        	</div>
+		        </span>
+		    </div>
+			</div>
+			<div class="col-lg-6">
+				<div class="d-lg-block d-none">
+	        <img style="border-radius: 5px" style="width: 100%" src="{% static 'image/faq_banner.jpeg' %}" alt="banner">
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

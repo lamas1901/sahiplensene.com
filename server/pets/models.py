@@ -55,14 +55,6 @@ class Pet(models.Model):
 		return f'<Pet-{self.name}>'
 
 
-# class LostPet(models.Model):
-# 	name = models.CharField('Hayvan Adı',max_length=255)
-# 	slug = models.SlugField('Slug',max_length=255,unique_for_date='publish')
-# 	publish = models.DateTimeField('Yayınlama Tarihi',default=timezone.now)
-# 	owner = models.ForeignKey(User,on_delete=models.CASCADE)
-# 	price = models.IntegerField('Bulana Ödül (Yoksa 0)')
-# 	animal_type = models.ForeignKey(PetType,on_delete=models.CASCADE)
-
 class Slide(models.Model):
 
 	heading_pre = models.CharField('Üst Başlık',max_length=50,blank=True,null=True)
@@ -111,3 +103,13 @@ class Media(models.Model):
 
 	def __repr__(self):
 		return f'<Media-{self.name}>'
+
+class FrequentlyAskedQuestion(models.Model):
+	title = models.CharField('Soru Başlığı',max_length=255)
+	content = models.TextField('Soru İçeriği')
+
+	def __str__(self):
+		return f'Sıkça Sorulan Soru "{self.content}"'
+
+	def __repr__(self):
+		return f'<FrequentlyAskedQuestion {self.id}>'

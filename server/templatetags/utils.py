@@ -2,7 +2,7 @@ from django import template
 from django.utils.safestring import mark_safe
 import markdown
 
-from pets.models import PetType, Pet, Media
+from pets.models import PetType, Pet, Media, FrequentlyAskedQuestion
 from pets.utils.consts import (
 	CITIES, 
 	ADVERT_CHOICES, 
@@ -105,3 +105,9 @@ def get_const(name):
 @register.simple_tag
 def get_media():
 	return Media.objects.all()
+
+# GET FEW MODEL OBJECTS
+
+@register.simple_tag
+def get_faq(count=5):
+	return FrequentlyAskedQuestion.objects.all()[:count]

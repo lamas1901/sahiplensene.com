@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Pet, PetType, Slide, VideoSlide, Media
+from .models import Pet, PetType, Slide, VideoSlide, Media, FrequentlyAskedQuestion
 
 @admin.register(Pet)
 class PetAdmin(admin.ModelAdmin):
@@ -33,3 +33,8 @@ class VideoSlideAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
 	list_display = ('name',)
 	ordering = ('name',)
+
+@admin.register(FrequentlyAskedQuestion)
+class FrequentlyAskedQuestionAdmin(admin.ModelAdmin):
+	list_display = ('title',)
+	ordering = ('title',)

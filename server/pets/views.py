@@ -7,7 +7,9 @@ from django.core.files import File
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.detail import DetailView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse
 from django_filters.views import FilterView
 from slugify import slugify
 
@@ -16,7 +18,7 @@ import re
 import urllib
 
 from .filters import PetFilter
-from .models import Pet, PetType, Slide, VideoSlide
+from .models import Pet, PetType, Slide, VideoSlide, FrequentlyAskedQuestion
 from .utils import consts
 
 
@@ -41,13 +43,6 @@ def home(request):
 		'video_slides': video_slides,
 		'gold_pets':gold_pets,
 	})
-
-class PetListView(FilterView):
-	model = Pet
-	paginate_by = 6
-	context_object_name = 'pets'
-	template_name = 'pets/dashboard.html'
-	filter_class = PetFilter
 
 
 def dashboard(request,type='normal'):
@@ -142,8 +137,9 @@ class PetDetailView(DetailView):
 		return Pet.objects.get(id=self.kwargs.get('pk'),slug=self.kwargs.get('slug'))
 
 
-class PetAddView(CreateView,LoginRequiredMixin):
+class PetAddView(LoginRequiredMixin,CreateView):
 	model = Pet
+	login_url = '/profiles/login'
 	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo','description']
 	template_name = 'pets/pet-add.html'
 
@@ -163,8 +159,9 @@ class PetAddView(CreateView,LoginRequiredMixin):
 		return HttpResponseRedirect(instance.get_absolute_url())
 
 
-class PetEditView(UpdateView,LoginRequiredMixin):
+class PetEditView(LoginRequiredMixin,UpdateView):
 	model = Pet
+	login_url = '/profiles/login'
 	fields = ['name','animal_type','breed','color','age','height','price','city','sex','photo','description']
 	template_name = 'pets/pet-add.html'
 
@@ -176,6 +173,17 @@ class PetEditView(UpdateView,LoginRequiredMixin):
 			form.fields[field].widget.attrs.update({'class':'form-control'})
 
 		return form
+
+	def get(self, request, *args, **kwargs):
+		if request.user == self.get_object().owner:
+			return super().get(request, *args, **kwargs)
+		return HttpResponseRedirect("/")
+
+class FAQListView(ListView):
+	template_name = 'pets/faq.html'
+	paginate_by = 10
+	model = FrequentlyAskedQuestion
+
 
 @login_required(login_url='profiles:custom-login')
 def pet_delete(request,id):

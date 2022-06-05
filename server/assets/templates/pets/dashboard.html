@@ -99,7 +99,7 @@ Evcil Hayvan İlanları
                 </div>
             </div>
             <div class="col-lg-4 col-xl-3 order-lg-1">
-                <form class="sidebar-widget" action=".">
+                <form class="sidebar-widget" action="{% url 'pets:dashboard' %}">
                     <h2 class="sidebar-title">Arama Filtreleri</h2>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'normal' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'normal' %}" type="submit">Sahiplendirme İlanları</a>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'marry' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'marry' %}" type="submit">Eş Bul</a>

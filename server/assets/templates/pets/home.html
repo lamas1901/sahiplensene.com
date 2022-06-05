@@ -53,171 +53,13 @@
       <div class="swiper-pagination"></div>
    </div>
 
-   <!-- Promotion Block 1 -->
-   <section class="pt--50 space-db--30">
-      <h2 class="d-none">Promotion Block
-      </h2>
-      <div class="container">
-         <a class="promo-image overflow-image">
-         <img src="{% static 'image/product/promo-product-image-huge--home-4.jpg' %}" alt="">
-         </a>
-      </div>
-   </section>
-   {% if super_pets %}
-      <!-- SLider Block 3 / Tab -->
-      <div class="pt--50">
-         <div class="container">
-            <div class="slider-header-block tab-header d-flex">
-               <div class="block-title">
-                  <h2>SÜPER İLANLAR</h2>
-               </div>
-            </div>
-            <div class="tab-content pm-slider-tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <div class="petmark-slick-slider border grid-column-slider  arrow-type-two" data-slick-setting='{
-                     "autoplay": true,
-                     "autoplaySpeed": 3000,
-                     "slidesToShow": 5,
-                     "rows" :1,
-                     "arrows": true
-                     }'
-                     data-slick-responsive='[
-                     {"breakpoint":991, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":768, "settings": {"slidesToShow": 2} },
-                     {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
-                     ]'>
-                     {% for pet in super_pets %}
-                        <div class="single-slide p-2">
-                           <div class="pm-product">
-                              <div class="image">
-                                 <a href="{{ pet.get_absolute_url }}">
-                                    <img style="height: 200px;width: 100%; object-fit: cover;" src="{{ pet.photo.url }}" alt="">
-                                 </a>
-                              </div>
-                              <div class="content">
-                                 <h3>{{ pet.name }}</h3>
-                                 <div class="price text-red">
-                                    <span>
-                                       {% if pet.price %}
-                                          ${{pet.price}}
-                                       {% else %}
-                                          BEDAVA
-                                       {% endif %}
-                                    </span>
-                                 </div>
-                                 <div class="btn-block">
-                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded">İNCELE</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     {% endfor %}
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- Promotion Block 3 -->
-      <section class="pt--50 space-db--30">
-         <h2 class="d-none">Promotion Block
-         </h2>
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big-2--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-            </div>
-         </div>
-      </section>
-   {% endif %}
-   {% if platinum_pets %}
-      <!-- SLider Block 3 / Tab -->
-      <div class="pt--50">
-         <div class="container">
-            <div class="slider-header-block tab-header d-flex">
-               <div class="block-title">
-                  <h2>PLATINUM İLANLAR</h2>
-               </div>
-            </div>
-            <div class="tab-content pm-slider-tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <div class="petmark-slick-slider border grid-column-slider  arrow-type-two" data-slick-setting='{
-                     "autoplay": true,
-                     "autoplaySpeed": 3000,
-                     "slidesToShow": 5,
-                     "rows" :1,
-                     "arrows": true
-                     }'
-                     data-slick-responsive='[
-                     {"breakpoint":991, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":768, "settings": {"slidesToShow": 2} },
-                     {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
-                     ]'>
-                     {% for pet in platinum_pets %}
-                        <div class="single-slide p-2">
-                           <div class="pm-product">
-                              <div class="image">
-                                 <a href="{{ pet.get_absolute_url }}">
-                                    <img style="height: 200px;width: 100%; object-fit: cover;" src="{{ pet.photo.url }}" alt="">
-                                 </a>
-                              </div>
-                              <div class="content">
-                                 <h3>{{ pet.name }}</h3>
-                                 <div class="price text-red">
-                                    <span>
-                                       {% if pet.price %}
-                                          ${{pet.price}}
-                                       {% else %}
-                                          BEDAVA
-                                       {% endif %}
-                                    </span>
-                                 </div>
-                                 <div class="btn-block">
-                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded">İNCELE</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     {% endfor %}
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- Promotion Block 3 -->
-      <section class="pt--50 space-db--30">
-         <h2 class="d-none">Promotion Block
-         </h2>
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big-2--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-            </div>
-         </div>
-      </section>
-   {% endif %}
    {% if gold_pets %}
       <!-- SLider Block 3 / Tab -->
       <div class="pt--50">
          <div class="container">
             <div class="slider-header-block tab-header d-flex">
                <div class="block-title">
-                  <h2>GOLD İLANLAR</h2>
+                  <h2><b>GOLD İLANLAR</b> ( Açılışımıza Özel Bedava Gold İlan Verme Hakkınız Kullanın )</h2>
                </div>
             </div>
             <div class="tab-content pm-slider-tab-content" id="myTabContent">
@@ -243,14 +85,10 @@
                                  </a>
                               </div>
                               <div class="content">
-                                 <h3>{{ pet.name }}</h3>
+                                 <h3>İlanınız Burda Olsun!</h3>
                                  <div class="price text-red">
                                     <span>
-                                       {% if pet.price %}
-                                          ${{pet.price}}
-                                       {% else %}
-                                          BEDAVA
-                                       {% endif %}
+                                       BEDAVA
                                     </span>
                                  </div>
                                  <div class="btn-block">
@@ -260,6 +98,26 @@
                            </div>
                         </div>
                      {% endfor %}
+                     <div class="single-slide p-2">
+                        <div class="pm-product">
+                           <div class="image">
+                              <a href="{% static 'image/example-dog.png' %}">
+                                 <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
+                              </a>
+                           </div>
+                           <div class="content">
+                              <h3>İlanınız Burda Olsun!</h3>
+                              <div class="price text-red">
+                                 <span>
+                                    BEDAVA
+                                 </span>
+                              </div>
+                              <div class="btn-block">
+                                 <a href="{% url 'pets:pet-add' %}" class="btn btn-outlined btn-rounded">İLAN VER</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
@@ -285,80 +143,17 @@
          </div>
       </section>
    {% endif %}
-   {% if silver_pets %}
-      <!-- SLider Block 3 / Tab -->
-      <div class="pt--50">
-         <div class="container">
-            <div class="slider-header-block tab-header d-flex">
-               <div class="block-title">
-                  <h2>SILVER İLANLAR</h2>
-               </div>
-            </div>
-            <div class="tab-content pm-slider-tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <div class="petmark-slick-slider border grid-column-slider  arrow-type-two" data-slick-setting='{
-                     "autoplay": true,
-                     "autoplaySpeed": 3000,
-                     "slidesToShow": 5,
-                     "rows" :1,
-                     "arrows": true
-                     }'
-                     data-slick-responsive='[
-                     {"breakpoint":991, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":768, "settings": {"slidesToShow": 2} },
-                     {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
-                     ]'>
-                     {% for pet in silver_pets %}
-                        <div class="single-slide p-2">
-                           <div class="pm-product">
-                              <div class="image">
-                                 <a href="{{ pet.get_absolute_url }}">
-                                    <img style="height: 200px;width: 100%; object-fit: cover;" src="{{ pet.photo.url }}" alt="">
-                                 </a>
-                              </div>
-                              <div class="content">
-                                 <h3>{{ pet.name }}</h3>
-                                 <div class="price text-red">
-                                    <span>
-                                       {% if pet.price %}
-                                          ${{pet.price}}
-                                       {% else %}
-                                          BEDAVA
-                                       {% endif %}
-                                    </span>
-                                 </div>
-                                 <div class="btn-block">
-                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded">İNCELE</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     {% endfor %}
-                  </div>
-               </div>
-            </div>
-         </div>
+   {% include './home/search.html' %}
+   <section class="pt--50 space-db--30">
+      <h2 class="d-none">Promotion Block
+      </h2>
+      <div class="container">
+         <a class="promo-image overflow-image">
+         <img src="{% static 'image/product/promo-product-image-huge--home-4.jpg' %}" alt="">
+         </a>
       </div>
-      <!-- Promotion Block 3 -->
-      <section class="pt--50 space-db--30">
-         <h2 class="d-none">Promotion Block
-         </h2>
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big-2--home-4.jpg' %}" alt="">
-                  </a>
-               </div>
-            </div>
-         </div>
-      </section>
-   {% endif %}
+   </section>
+   {% include './home/faq.html' %}
    {% get_recent_posts as recent_posts %}
    {% if recent_posts %}
       <div class="pt--50 mb-5">

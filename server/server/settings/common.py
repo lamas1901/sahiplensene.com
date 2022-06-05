@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'phonenumber_field',
+    'macros',
     'profiles.apps.ProfilesConfig',
     'pets.apps.PetsConfig',
     'blog.apps.BlogConfig',

@@ -1,0 +1,40 @@
+{% load macros %}
+{% load utils %}
+{% macro question title content number %}
+    <div class="accordion-item">
+      <h2 
+        class="accordion-header" 
+        id="heading{{number}}">
+        <button 
+          class="accordion-button collapsed" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse{{number}}" 
+          aria-expanded="true" 
+          aria-controls="collapse{{number}}">
+          {{ title }}
+        </button>
+      </h2>
+      <div 
+        id="collapse{{number}}" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="heading{{number}}" 
+        data-bs-parent="#faq-accordeon">
+        <div class="accordion-body">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+{% endmacro %}
+<div class="accordion" id="faq-accordeon">
+  {% get_faq as faq %}
+  {% for q in faq %}
+    {% define q.title as title %}
+    {% define q.content as content %}
+    {% define q.id as id %}
+    {% use_macro question title content id %}
+  {% endfor %}
+  <a href="{% url 'pets:faq' %}" class="mt-3 btn btn--primary mx-auto d-block">
+       Daha Çok Soru
+    </a>
+</div>

@@ -14,6 +14,7 @@ urlpatterns = [
 	path('pet_edit/<slug:pk>',views.PetEditView.as_view(),name='pet-edit'),
 	path('pet_delete/<int:id>',views.pet_delete,name='pet-delete'),
 	path('my_pets/',views.my_pets,name='my-pets'),
+	path('faq/',views.FAQListView.as_view(),name='faq'),
 	path('about_us/',views.about_us,name='about-us'),
 	path('contact_us',views.about_us,name='contact-us')
 ]
