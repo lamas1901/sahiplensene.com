@@ -10,6 +10,7 @@ from .utils import consts
 
 
 class PetType(models.Model):
+
 	name = models.CharField('Tür Adı',max_length=255)
 	slug = models.SlugField('Slug',max_length=255,unique=True)
 

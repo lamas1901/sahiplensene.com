@@ -10,14 +10,12 @@ from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
-from django_filters.views import FilterView
 from slugify import slugify
 
 
 import re
 import urllib
 
-from .filters import PetFilter
 from .models import Pet, PetType, Slide, VideoSlide, FrequentlyAskedQuestion
 from .utils import consts
 
@@ -35,13 +33,19 @@ def home(request):
 
 	super_pets = Pet.objects.all().filter(advert_type='super')
 	platinum_pets = Pet.objects.all().filter(advert_type='platinum')
-	gold_pets = Pet.objects.all().filter(advert_type='gold')
 	silver_pets = Pet.objects.all().filter(advert_type='silver')
+
+	gold_pets_dogs = Pet.objects.filter(animal_type=PetType.objects.get(slug='kopek'),advert_type='gold')
+	gold_pets_cats = Pet.objects.filter(animal_type=PetType.objects.get(slug='kedi'),advert_type='gold')
+	gold_pets_birds = Pet.objects.filter(animal_type=PetType.objects.get(slug='kus'),advert_type='gold')
+
 
 	return render(request,'pets/home.html',{
 		'slides':slides,
 		'video_slides': video_slides,
-		'gold_pets':gold_pets,
+		'gold_pets_dogs':gold_pets_dogs,
+		'gold_pets_cats':gold_pets_dogs,
+		'gold_pets_birds':gold_pets_birds
 	})
 
 

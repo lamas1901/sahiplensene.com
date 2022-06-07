@@ -53,7 +53,7 @@
       <div class="swiper-pagination"></div>
    </div>
 
-   {% if gold_pets %}
+   {% if gold_pets_dogs %}
       <!-- SLider Block 3 / Tab -->
       <div class="pt--50">
          <div class="container">
@@ -76,7 +76,7 @@
                      {"breakpoint":768, "settings": {"slidesToShow": 2} },
                      {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
                      ]'>
-                     {% for pet in gold_pets %}
+                     {% for pet in gold_pets_dogs %}
                         <div class="single-slide p-2">
                            <div class="pm-product">
                               <div class="image">
@@ -123,36 +123,164 @@
             </div>
          </div>
       </div>
-      <!-- Promotion Block 3 -->
-      <section class="pt--50 space-db--30">
-         <h2 class="d-none">Promotion Block
-         </h2>
+      {% include './home/adds-1.html' %}
+   {% endif %}
+   <div class="container">
+      <video width="100%" autoplay muted loop>
+         <source src="{% static '/video/add_banner.mp4' %}" type="video/mp4">
+      </video>
+   </div>
+   {% if gold_pets_cats %}
+      <!-- SLider Block 3 / Tab -->
+      <div class="pt--50">
          <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big--home-4.jpg' %}" alt="">
-                  </a>
+            <div class="slider-header-block tab-header d-flex">
+               <div class="block-title">
+                  <h2><b>GOLD İLANLAR</b> ( Açılışımıza Özel Bedava Gold İlan Verme Hakkınız Kullanın )</h2>
                </div>
-               <div class="col-md-6">
-                  <a class="promo-image overflow-image">
-                  <img src="{% static 'image/product/promo-product-image-big-2--home-4.jpg' %}" alt="">
-                  </a>
+            </div>
+            <div class="tab-content pm-slider-tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="petmark-slick-slider border grid-column-slider  arrow-type-two" data-slick-setting='{
+                     "autoplay": true,
+                     "autoplaySpeed": 3000,
+                     "slidesToShow": 5,
+                     "rows" :1,
+                     "arrows": true
+                     }'
+                     data-slick-responsive='[
+                     {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                     {"breakpoint":768, "settings": {"slidesToShow": 2} },
+                     {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
+                     ]'>
+                     {% for pet in gold_pets_cats %}
+                        <div class="single-slide p-2">
+                           <div class="pm-product">
+                              <div class="image">
+                                 <a href="{{ pet.get_absolute_url }}">
+                                    <img style="height: 200px;width: 100%; object-fit: cover;" src="{{ pet.photo.url }}" alt="">
+                                 </a>
+                              </div>
+                              <div class="content">
+                                 <h3>İlanınız Burda Olsun!</h3>
+                                 <div class="price text-red">
+                                    <span>
+                                       BEDAVA
+                                    </span>
+                                 </div>
+                                 <div class="btn-block">
+                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded">İNCELE</a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     {% endfor %}
+                     <div class="single-slide p-2">
+                        <div class="pm-product">
+                           <div class="image">
+                              <a href="{% static 'image/example-dog.png' %}">
+                                 <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
+                              </a>
+                           </div>
+                           <div class="content">
+                              <h3>İlanınız Burda Olsun!</h3>
+                              <div class="price text-red">
+                                 <span>
+                                    BEDAVA
+                                 </span>
+                              </div>
+                              <div class="btn-block">
+                                 <a href="{% url 'pets:pet-add' %}" class="btn btn-outlined btn-rounded">İLAN VER</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
-      </section>
+      </div>
+      {% include './home/adds-1.html' %}
+   {% endif %}
+   <div class="container">
+      <video width="100%" autoplay muted loop>
+         <source src="{% static '/video/add_banner.mp4' %}" type="video/mp4">
+      </video>
+   </div>
+   {% if gold_pets_birds %}
+      <!-- SLider Block 3 / Tab -->
+      <div class="pt--50">
+         <div class="container">
+            <div class="slider-header-block tab-header d-flex">
+               <div class="block-title">
+                  <h2><b>GOLD İLANLAR</b> ( Açılışımıza Özel Bedava Gold İlan Verme Hakkınız Kullanın )</h2>
+               </div>
+            </div>
+            <div class="tab-content pm-slider-tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="petmark-slick-slider border grid-column-slider  arrow-type-two" data-slick-setting='{
+                     "autoplay": true,
+                     "autoplaySpeed": 3000,
+                     "slidesToShow": 5,
+                     "rows" :1,
+                     "arrows": true
+                     }'
+                     data-slick-responsive='[
+                     {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                     {"breakpoint":768, "settings": {"slidesToShow": 2} },
+                     {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
+                     ]'>
+                     {% for pet in gold_pets_birds %}
+                        <div class="single-slide p-2">
+                           <div class="pm-product">
+                              <div class="image">
+                                 <a href="{{ pet.get_absolute_url }}">
+                                    <img style="height: 200px;width: 100%; object-fit: cover;" src="{{ pet.photo.url }}" alt="">
+                                 </a>
+                              </div>
+                              <div class="content">
+                                 <h3>İlanınız Burda Olsun!</h3>
+                                 <div class="price text-red">
+                                    <span>
+                                       BEDAVA
+                                    </span>
+                                 </div>
+                                 <div class="btn-block">
+                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded">İNCELE</a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     {% endfor %}
+                     <div class="single-slide p-2">
+                        <div class="pm-product">
+                           <div class="image">
+                              <a href="{% static 'image/example-dog.png' %}">
+                                 <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
+                              </a>
+                           </div>
+                           <div class="content">
+                              <h3>İlanınız Burda Olsun!</h3>
+                              <div class="price text-red">
+                                 <span>
+                                    BEDAVA
+                                 </span>
+                              </div>
+                              <div class="btn-block">
+                                 <a href="{% url 'pets:pet-add' %}" class="btn btn-outlined btn-rounded">İLAN VER</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% include './home/adds-1.html' %}
    {% endif %}
    {% include './home/search.html' %}
-   <section class="pt--50 space-db--30">
-      <h2 class="d-none">Promotion Block
-      </h2>
-      <div class="container">
-         <a class="promo-image overflow-image">
-         <img src="{% static 'image/product/promo-product-image-huge--home-4.jpg' %}" alt="">
-         </a>
-      </div>
-   </section>
+   {% include './home/adds-2.html' %}
    {% include './home/faq.html' %}
    {% get_recent_posts as recent_posts %}
    {% if recent_posts %}
