@@ -49,7 +49,6 @@ def get_pet_types():
 
 @register.simple_tag
 def get_pet_type(slug):
-	print(slug)
 	pet_type = PetType.objects.filter(slug=slug)
 	if pet_type:
 		return PetType.objects.get(slug=slug).name

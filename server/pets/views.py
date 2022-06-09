@@ -53,7 +53,7 @@ def dashboard(request,type='normal'):
 
 	type = type if type in [x[0] for x in consts.ADVERT_CHOICES] else type
 
-	pets = Pet.objects.filter(advert_type=type)
+	pets = Pet.objects.filter(advert_type=type).order_by('publish')
 
 	straight_filters = [
 		'city',

@@ -26,7 +26,6 @@ def profile(request):
 		form_profile = ProfileForm(request.POST,instance=request.user.profile)
 
 		if form_user.is_valid() and form_profile.is_valid():
-			print("valid")
 			form_user.save()
 			form_profile.save()
 			messages.success(request,'Profil bilgileriniz başarı ile güncellendi')
