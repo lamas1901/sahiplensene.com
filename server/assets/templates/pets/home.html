@@ -85,10 +85,14 @@
                                  </a>
                               </div>
                               <div class="content">
-                                 <h3>İlanınız Burda Olsun!</h3>
+                                 <h3>{{ pet.name }}</h3>
                                  <div class="price text-red">
                                     <span>
-                                       BEDAVA
+                                       {% if pet.price %}
+                                          {{ pet.price }}
+                                       {% else %}
+                                          BEDAVA
+                                       {% endif %}
                                     </span>
                                  </div>
                                  <div class="btn-block">
@@ -101,7 +105,7 @@
                      <div class="single-slide p-2">
                         <div class="pm-product">
                            <div class="image">
-                              <a href="{% static 'image/example-dog.png' %}">
+                              <a href="{% url 'pets:pet-add' %}">
                                  <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
                               </a>
                            </div>
@@ -162,10 +166,14 @@
                                  </a>
                               </div>
                               <div class="content">
-                                 <h3>İlanınız Burda Olsun!</h3>
+                                 <h3>{{ pet.name }}</h3>
                                  <div class="price text-red">
                                     <span>
-                                       BEDAVA
+                                       {% if pet.price %}
+                                          {{ pet.price }}
+                                       {% else %}
+                                          BEDAVA
+                                       {% endif %}
                                     </span>
                                  </div>
                                  <div class="btn-block">
@@ -178,7 +186,7 @@
                      <div class="single-slide p-2">
                         <div class="pm-product">
                            <div class="image">
-                              <a href="{% static 'image/example-dog.png' %}">
+                              <a href="{% url 'pets:pet-add' %}">
                                  <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
                               </a>
                            </div>
@@ -239,10 +247,14 @@
                                  </a>
                               </div>
                               <div class="content">
-                                 <h3>İlanınız Burda Olsun!</h3>
+                                 <h3>{{ pet.name }}</h3>
                                  <div class="price text-red">
                                     <span>
-                                       BEDAVA
+                                       {% if pet.price %}
+                                          {{ pet.price }}
+                                       {% else %}
+                                          BEDAVA
+                                       {% endif %}
                                     </span>
                                  </div>
                                  <div class="btn-block">
@@ -255,7 +267,7 @@
                      <div class="single-slide p-2">
                         <div class="pm-product">
                            <div class="image">
-                              <a href="{% static 'image/example-dog.png' %}">
+                              <a href="{% url 'pets:pet-add' %}">
                                  <img style="height: 200px;width: 100%; object-fit: cover;" src="{% static 'image/example-dog.png' %}" alt="">
                               </a>
                            </div>

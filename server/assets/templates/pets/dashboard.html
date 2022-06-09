@@ -31,13 +31,13 @@ Evcil Hayvan İlanları
                                 <div class="row align-items-center ps-md-0 pe-md-0 g-0">
                                     <div style="text-align: right;">
                                         {% if pets %}
-                                        {% define 8 as last %}
-                                        {% if pets.paginator.num_pages|add:last > pets.paginator.num_pages %}
-                                        {% define pets.paginator.num_pages|add:-1 as last %}
-                                        {% endif %}
-                                        {{ pets.paginator.num_pages }}'den {{ pets.number }}–{{ pets.number|add:last }}
+                                            {% define 8 as last %}
+                                            {% if pets.paginator.num_pages|add:last > pets.paginator.num_pages %}
+                                                {% define pets.paginator.num_pages|add:-1 as last %}
+                                            {% endif %}
+                                            {{ pets.paginator.num_pages }}'den {{ pets.number }}–{{ pets.number|add:last }}
                                         {% else %}
-                                        0
+                                            0
                                         {% endif %}
                                         sonuç
                                     </div>
@@ -48,50 +48,53 @@ Evcil Hayvan İlanları
                 </div>
                 <div class="shop-product-wrap grid with-pagination row border grid-four-column  me-0 ms-0 g-0">
                     {% if pets %}
-                    {% for pet in pets %}
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="pm-product  ">
-                            <a style="padding:5px" class="d-block position-relative" href="{{ pet.get_absolute_url }}">
-                                <img style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" src="{{pet.photo.url}}" alt="">
-                                {% if pet.advert_type != 'normal' %}
-                                <span class="onsale-badge" style="background: {% get_advert_level_color pet.advert_type %} !important">
-                                    {% get_advert_level pet.advert_type %}
-                                </span>
-                                {% endif %}
-                            </a>
-                            <div class="content">
-                                <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
-                                <p class="font-weight-500 text-muted">{% get_pet_type pet.animal_type.slug %}</p>
-                                <div class="price text-red">
-                                    <span>
-                                        {% if pet.price %}
-                                        ${{pet.price}}
-                                        {% else %}
-                                        BEDAVA
+                        {% for pet in pets %}
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="pm-product  ">
+                                    <a style="padding:5px" class="d-block position-relative" href="{{ pet.get_absolute_url }}">
+                                        <img style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" src="{{pet.photo.url}}" alt="">
+                                        {% if pet.advert_type != 'normal' %}
+                                        <span class="onsale-badge" style="background: {% get_advert_level_color pet.advert_type %} !important">
+                                            {% get_advert_level pet.advert_type %}
+                                        </span>
                                         {% endif %}
-                                    </span>
-                                </div>
-                                <div class="btn-block grid-btn">
-                                    <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
-                                </div>
-                                <div class="card-list-content ">
-                                    <article>
-                                        <p>{{ pet.description|truncatechars:100 }}...
-                                        </p>
-                                    </article>
-                                    <div class="btn-block d-flex">
-                                        <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
+                                    </a>
+                                    <div class="content">
+                                        <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
+                                        <p class="font-weight-500 text-muted">{% get_pet_type pet.animal_type.slug %}</p>
+                                        <div class="price text-red">
+                                            <span>
+                                                {% if pet.price %}
+                                                    ${{pet.price}}
+                                                {% else %}
+                                                    BEDAVA
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div class="btn-block grid-btn">
+                                            <a href="{{ pet.get_absolute_url }}" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
+                                        </div>
+                                        <div class="card-list-content ">
+                                            <article>
+                                                <p>{{ pet.description|truncatechars:100 }}...
+                                                </p>
+                                            </article>
+                                            <div class="btn-block d-flex">
+                                                <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid">İncele</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                            {% if forloop.counter == 3 %}
+                                {% include './dashboard/adds-1.html' %}
+                            {% endif %}
+                        {% endfor %}
                     {% else %}
-                    <div class="p-5 text-center" style="min-height: 50vh;">
-                        <h2><i class="fas fa-poo"></i> Maalesef evcil hayvan bulamadık</h2>
-                        <p class="text-muted">Başka filtre deneyiniz...</p>
-                    </div>
+                        <div class="p-5 text-center" style="min-height: 50vh;">
+                            <h2><i class="fas fa-poo"></i> Maalesef evcil hayvan bulamadık</h2>
+                            <p class="text-muted">Başka filtre deneyiniz...</p>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="mt--30">

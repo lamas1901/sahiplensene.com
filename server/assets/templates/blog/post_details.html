@@ -19,9 +19,13 @@
             <div class="col-lg-8 col-xl-9 left-slide-margin">
                <div class="blog-post post-details single-block">
                   <div class="blog-image">
-                     <video width="100%" autoplay muted loop>
-                        <source src="{% static '/video/blog_banner.mp4' %}" type="video/mp4">
-                     </video>
+                     <ins class="adsbygoogle"
+                       style="display:block; width: 100%"
+                       data-ad-format="fluid"
+                       data-ad-layout-key="+1s+s0-j-r+3m"
+                       data-ad-client="ca-pub-4656845275812640"
+                       data-ad-slot="7640189787">
+                    </ins>
                   </div>
                   <div class="blog-content mt--30">
                      <header>
@@ -37,6 +41,11 @@
                      <article>
                         {{ post.content|markdown }}
                      </article>
+                     <div>
+                        <video width="100%" autoplay muted loop>
+                           <source src="{% static '/video/blog_banner.mp4' %}" type="video/mp4">
+                        </video>
+                     </div>
                      <footer class="blog-meta">
                         <i class="fas fa-tags"></i> TAGLER:
                         {% for tag in post.tags.all %}

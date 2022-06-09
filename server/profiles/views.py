@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
 from django.shortcuts import render,redirect
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -90,7 +91,7 @@ def verify(request):
 			if not User.objects.filter(email=form.cleaned_data['email']):
 
 				while True:
-					code = secrets.token_hex()
+					code = secrets.token_urlsafe()
 					if SignUpRequest.objects.filter(code=code):
 						continue
 					break
@@ -104,9 +105,9 @@ def verify(request):
 				mail = EmailMessage(
 					'Sahiplensene E-posta doğrulama.',
 					render_to_string('profiles/mail/verify.html',{
-						'link':f'127.0.0.1:8000/profile/verify/{form.cleaned_data["email"]}/{code}'
+						'link':f'{request.scheme}://{request.get_host()}{reverse("profiles:verify-confirm",args=[form.cleaned_data["email"],code])}'
 					}),
-					'sahiplenesene.com',
+					settings.DEFAULT_FROM_EMAIL,
 					[form.cleaned_data['email']],
 				)
 				mail.content_subtype = 'html'
@@ -140,6 +141,7 @@ def register(request,email,code):
 				messages.success(request,'Hesabınız oluşturuldu')
 				form_user = RegisterForm()
 				form_profile = ProfileForm()
+				return redirect('profiles:login')
 		else:
 			form_user = RegisterForm()
 			form_profile = ProfileForm()
