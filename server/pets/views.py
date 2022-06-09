@@ -20,6 +20,25 @@ from .models import Pet, PetType, Slide, VideoSlide, FrequentlyAskedQuestion
 from .utils import consts
 
 
+from django.conf import settings
+from os import path
+
+def add_visitor() -> None:
+  filepath = settings.BASE_DIR / 'visitors.txt'
+
+  if path.exists(filepath):
+
+    with open(filepath, 'r') as file:
+      count = int(file.read().strip()) + 1
+
+  else:
+    count = 1
+
+  with open(filepath, 'w') as file:
+    print(count, file=file, end='')
+
+
+
 def about_us(request):
 	return render(request,'pets/about_us.html')
 
@@ -27,6 +46,8 @@ def contact_us(request):
 	return render(request,'pets/contact_us.html')
 
 def home(request):
+
+	add_visitor()
 
 	slides = Slide.objects.all()
 	video_slides = VideoSlide.objects.all()

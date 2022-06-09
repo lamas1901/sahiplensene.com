@@ -140,7 +140,7 @@ def register(request,email,code):
 				messages.success(request,'Hesabınız oluşturuldu')
 				form_user = RegisterForm()
 				form_profile = ProfileForm()
-				return redirect('profiles:login')
+				return redirect('profiles:custom-login')
 		else:
 			form_user = RegisterForm()
 			form_profile = ProfileForm()
