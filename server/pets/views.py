@@ -134,7 +134,7 @@ def dashboard(request,type='normal'):
 		if request.GET.get(_):
 			filter_string += f'{_}={urllib.parse.quote(request.GET.get(_))}&'
 
-	paginator = Paginator(pets,9)
+	paginator = Paginator(pets,8)
 	page = request.GET.get('page')
 
 	try:

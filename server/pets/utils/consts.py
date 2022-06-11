@@ -107,5 +107,5 @@ SEX_CHOICES = (
 )
 
 SHOP_DATA = {
-	'CONTACT_EMAIL':'contact@sahiplensene.com'
+	'CONTACT_EMAIL':'desktek.sahiplensene@outlook.com.tr'
 }
