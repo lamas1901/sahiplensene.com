@@ -53,11 +53,7 @@ Evcil Hayvan İlanları
                                 <div class="pm-product  ">
                                     <a style="padding:5px" class="d-block position-relative" href="{{ pet.get_absolute_url }}">
                                         <img style="height:250px;width:100%;object-fit: cover; border-radius: 0.3em; margin-bottom: 1rem" src="{{pet.photo.url}}" alt="">
-                                        {% if pet.advert_type != 'normal' %}
-                                        <span class="onsale-badge" style="background: {% get_advert_level_color pet.advert_type %} !important">
-                                            {% get_advert_level pet.advert_type %}
-                                        </span>
-                                        {% endif %}
+                                        {% pet_type_badge pet.advert_type %}
                                     </a>
                                     <div class="content">
                                         <h3 class="font-weight-500 mb-0"><a href="product-details.html">{{pet.name}}</a></h3>
@@ -102,11 +98,11 @@ Evcil Hayvan İlanları
                 </div>
             </div>
             <div class="col-lg-4 col-xl-3 order-lg-1">
-                <form class="sidebar-widget" action="{% url 'pets:dashboard' %}">
+                <form class="sidebar-widget" action="{% url 'pets:dashboard' type %}">
                     <h2 class="sidebar-title">Arama Filtreleri</h2>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'normal' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'normal' %}" type="submit">Sahiplendirme İlanları</a>
                     <a class="w-100 btn btn--primary btn--primary {% if type != 'marry' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'marry' %}" type="submit">Eş Bul</a>
-                    <a class="w-100 btn btn--primary btn--primary {% if type != 'lost' %}bg-dark{% endif %} mt-3" href="#" type="submit">Kayıp Hayvanlar</a>
+                    <a class="w-100 btn btn--primary btn--primary {% if type != 'lost' %}bg-dark{% endif %} mt-3" href="{% url 'pets:dashboard' 'lost' %}" type="submit">Kayıp Hayvanlar</a>
                     <div class="d-block">
                         <div class="single-sidebar my-3">
                             <div class="my-3">

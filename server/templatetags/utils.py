@@ -28,14 +28,18 @@ def define(val=None):
 # ADVERT_HIERARCHY 
 
 @register.simple_tag
-def get_advert_level(slug):
+def get_advert_type(slug):
 	for level in ADVERT_CHOICES:
 		if level[0] == slug:
 			return level[1]
 
 @register.simple_tag
-def get_advert_level_color(slug):
+def get_advert_type_color(slug):
 	return ADVERT_COLORS.get(slug,'')
+
+@register.inclusion_tag('pets/component/pet-type-badge.html')
+def pet_type_badge(slug):
+	return {'slug':slug}
 
 # PET TYPE
 
@@ -98,8 +102,12 @@ def get_mypet_count(request):
 # SHOP_DATA
 
 @register.simple_tag
-def get_const(name):
+def get_global_const(name):
 	return consts.SHOP_DATA[name]
+
+@register.simple_tag
+def get_const(name):
+	return getattr(consts,name)
 
 @register.simple_tag
 def get_media():

@@ -22,6 +22,16 @@ class Post(models.Model):
 	for_pet_type = models.ForeignKey(PetType,on_delete=models.CASCADE)
 	tags = TaggableManager()
 
+	# def save(self, *args, **kwargs):
+	# 	from PIL import Image
+	# 	super().save()
+	# 	img = Image.open(self.image.path)
+	# 	if img.height > 100 or img.width > 100:
+	# 		new_img = (100, 100)
+	# 		img.thumbnail(new_img)
+	# 		img.save(self.image.path)
+
+
 	def get_absolute_url(self):
 		return reverse('blog:post_details',
 			args= [ self.slug ]

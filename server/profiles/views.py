@@ -29,7 +29,7 @@ def profile(request):
 			form_user.save()
 			form_profile.save()
 			messages.success(request,'Profil bilgileriniz başarı ile güncellendi')
-			return redirect(to='/profile')
+			return redirect(to='profiles:profile')
 
 	else:
 		form_user = UserForm(instance=request.user)

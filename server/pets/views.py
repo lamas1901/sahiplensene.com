@@ -23,6 +23,7 @@ from .utils import consts
 from django.conf import settings
 from os import path
 
+
 def add_visitor() -> None:
   filepath = settings.BASE_DIR / 'visitors.txt'
 
@@ -176,12 +177,20 @@ class PetAddView(LoginRequiredMixin,CreateView):
 
 		return form
 
-	def form_valid(self, form):
+	def form_valid(self, form,**kwargs):
 		instance = form.save(commit=False)
 		instance.slug = slugify(instance.name)
 		instance.owner = self.request.user
+		instance.advert_type = self.request.GET.get('advert_type') if self.request.GET.get('advert_type') in consts.ADVERT_TYPES else 'normal' 
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+
+	def get(self,*args,**kwargs):
+		if not (self.request.user.profile.phone):
+			messages.error(self.request,'İlan vermek için lutfen telefon bilgilerinizi paylaşınız...')
+			return redirect(to='profiles:profile')
+		else:
+			return super().get(*args,*kwargs)
 
 
 class PetEditView(LoginRequiredMixin,UpdateView):

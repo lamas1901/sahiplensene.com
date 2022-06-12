@@ -59,27 +59,45 @@
                      </div>
                      <!-- Amount and Add to cart -->
                      <div class="row">
-                        <a 
-                           class="m-1 col-6 d-block btn btn-rounded btn--primary text-white" 
-                           href='https://wa.me/{% if pet.special_waphone %}{{pet.special_waphone}}{% else %}{{ pet.owner.profile.waphone }}{% endif %}?text=Merhaba,%20sahiplensene.com%20üzerinden%20"{{pet.name}}"%20ilanı%20ile%20ilgili%20yazıyorum'>
-                           <i class="fab fa-whatsapp-square"></i>
-                           &nbsp;&nbsp;Whatsapp
-                        </a>
-                        <a class="m-1 col-6 d-block btn btn-rounded btn--info text-white" href="tel:{% if pet.special_phone %}{{pet.special_phone}}{% else %}{{ pet.owner.profile.phone }}{% endif %}">
-                           <i class="fas fa-phone"></i>&nbsp;&nbsp;Hattan ara
-                        </a>
+                        {% if pet.special_waphone or pet.owner.profile.waphone %}
+                           <a 
+                              class="m-1 col-6 d-block btn btn-rounded btn--primary text-white" 
+                              href='https://wa.me/{% if pet.special_waphone %}{{pet.special_waphone}}{% else %}{{ pet.owner.profile.waphone }}{% endif %}?text=Merhaba,%20sahiplensene.com%20üzerinden%20"{{pet.name}}"%20ilanı%20ile%20ilgili%20yazıyorum'>
+                              <i class="fab fa-whatsapp-square"></i>
+                              &nbsp;&nbsp;Whatsapp
+                           </a>
+                        {% endif %}
+                        {% if pet.special_phone or pet.owner.profile.phone %}
+                           <a class="m-1 col-6 d-block btn btn-rounded btn--info text-white" href="tel:{% if pet.special_phone %}{{pet.special_phone}}{% else %}{{ pet.owner.profile.phone }}{% endif %}">
+                              <i class="fas fa-phone"></i>&nbsp;&nbsp;Hattan ara
+                           </a>
+                        {% endif %}
                      </div>
                      <!-- Products Tag & Category Meta -->
                      <div class="product-meta mt--30">
                         <p>
+                           <i class="fas fa-calendar-alt"></i>
+                           &nbsp;&nbsp;İlan Türü : &nbsp;&nbsp;
+                           <span class="single-meta">
+                              {% get_advert_type pet.advert_type %}
+                           </span> 
+                        </p>
+                        <p>
+                           <i class="fas fa-calendar-alt"></i>
+                           &nbsp;&nbsp;Yayınlama Tarihi : &nbsp;&nbsp;
+                           <span class="single-meta">
+                              {{ pet.publish|date:"M d, Y" }}
+                           </span> 
+                        </p>
+                        <p>
                            <i class="fas fa-dog"></i>
-                           &nbsp;&nbsp;Tür: &nbsp;&nbsp;
+                           &nbsp;&nbsp;Tür : &nbsp;&nbsp;
                            <span class="single-meta">
                               {% get_pet_type pet.animal_type.slug %}
                            </span> 
                         </p>
-                        <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk: &nbsp;&nbsp;<span class="single-meta">{{pet.breed|is_undefined}}</span></p>
-                        <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Şehir: &nbsp;&nbsp;<span class="single-meta">{% get_city pet.city %}</span></p>
+                        <p><i class="fas fa-globe-africa"></i>&nbsp;&nbsp;Irk : &nbsp;&nbsp;<span class="single-meta">{{pet.breed|is_undefined}}</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Şehir : &nbsp;&nbsp;<span class="single-meta">{% get_city pet.city %}</span></p>
                      </div>
                   </div>
                </div>
@@ -167,13 +185,7 @@
                         <div class="pm-product">
                            <div class="image">
                               <a href="{{pet.get_absolute_url}}"><img style="height: 200px ;width:100%; object-fit: cover; border-radius: 0.2em" src="{{ pet.photo.url }}" alt=""></a>
-                              {% if pet.advert_type != 'normal' %}
-                                 <span 
-                                    class="onsale-badge" 
-                                    style="background: {% get_advert_level_color pet.advert_type %} !important">
-                                    {% get_advert_level pet.advert_type %}
-                                 </span>
-                              {% endif %}
+                              {% pet_type_badge pet.advert_type %}
                            </div>
                            <div class="content">
                               <h3>{{ pet.name }}</h3>

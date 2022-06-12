@@ -84,15 +84,18 @@ CITIES = (
 
 # PET_HIERARCHY 
 
+
 ADVERT_CHOICES = (
-	('normal','Normal'),
+	('normal','Sahiplenme'),
 	# ('super','Süper'),
 	# ('platinum','Platinum'),
 	('gold','Gold'),
 	# ('silver','Gümüş'),
 	('marry','Eş Bul'),
-	# ('lost','Kayıp')
+	('lost','Kayıp')
 )
+
+ADVERT_TYPES = ( item[0] for item in ADVERT_CHOICES )
 
 ADVERT_COLORS = {
 	'super': 'red',
@@ -100,6 +103,8 @@ ADVERT_COLORS = {
 	'gold':'gold',
 	'silver':'silver',
 }
+
+COLORED_ADVERT_TYPES = [ i for i in ADVERT_COLORS.keys() ]
 
 SEX_CHOICES = (
 	('male','Erkek'),

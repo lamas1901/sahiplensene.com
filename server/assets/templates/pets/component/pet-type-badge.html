@@ -1,0 +1,7 @@
+{% load utils %}
+{% get_const 'COLORED_ADVERT_TYPES' as colored_advert_types %}
+{% if slug in colored_advert_types %}
+<span class="onsale-badge" style="background: {% get_advert_type_color slug %} !important">
+    {% get_advert_type slug %}
+</span>
+{% endif %}

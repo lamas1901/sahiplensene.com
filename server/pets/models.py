@@ -34,7 +34,7 @@ class Pet(models.Model):
 	color = models.CharField('Hayvan Rengi',max_length=50,blank=True,null=True)
 	height = models.IntegerField('Hayvan Boyu',blank=True,null=True)
 	sex = models.CharField('Hayvan Cinsi',max_length=50,choices=consts.SEX_CHOICES,default='male')
-	breed = models.CharField('Hayvan Irkı',max_length=255)
+	breed = models.CharField('Hayvan Irkı',max_length=255,blank=True,null=True)
 	city = models.CharField('Bulunduğu Şehir',max_length=50,choices=consts.CITIES,default=consts.CITIES[0][0])
 	photo = models.ImageField('Görüntü',upload_to='pets/photos')
 	description = models.TextField('Açıklama')
@@ -42,6 +42,16 @@ class Pet(models.Model):
 	special_phone = PhoneNumberField('Özel Sahip Numarası',blank=True,null=True)
 	special_waphone = PhoneNumberField('Özel Sahip Whatsapp Numarası',blank=True,null=True)
 	special_ownername = models.CharField('Özel Sahip Adı',max_length=255,blank=True,null=True)
+
+	def save(self, *args, **kwargs):
+		from PIL import Image
+		super().save()
+		img = Image.open(self.photo.path)
+		if img.height > 100 or img.width > 100:
+			new_img = (100, 100)
+			img.thumbnail(new_img)
+			img.save(self.photo.path)
+
 
 	def get_absolute_url(self):
 		return reverse('pets:pet', args=[
