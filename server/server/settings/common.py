@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import configparser
+import environ
 
 env = environ.Env()
 env.read_env(BASE_DIR/'.env')

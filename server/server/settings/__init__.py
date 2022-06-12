@@ -1,5 +1,3 @@
-import environ
-
 from .common import *
 
 if DEBUG:
