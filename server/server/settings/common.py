@@ -2,7 +2,10 @@ from pathlib import Path
 import os
 import configparser
 
-from . import *
+env = environ.Env()
+env.read_env(BASE_DIR/'.env')
+
+DEBUG = int(env('DEBUG')) 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
