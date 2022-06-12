@@ -1,4 +1,4 @@
-from . import *
+from .common import *
 
 SECRET_KEY = 'django-insecure-t$h2ut#i(r!o0&b(+(9aldj1#iukoop%(ru#8d1%)99(5q8j(w'
 

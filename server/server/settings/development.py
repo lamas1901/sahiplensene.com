@@ -1,4 +1,4 @@
-from . import *
+from .common import *
 
 SECRET_KEY = 'secret-key'
 
