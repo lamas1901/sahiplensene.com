@@ -2,12 +2,12 @@ from pathlib import Path
 import os
 import environ
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 env.read_env(BASE_DIR/'.env')
 
 DEBUG = int(env('DEBUG')) 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 INSTALLED_APPS = [
     'django.contrib.admin',
