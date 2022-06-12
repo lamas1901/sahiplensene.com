@@ -95,7 +95,11 @@ ADVERT_CHOICES = (
 	('lost','Kayıp')
 )
 
+ADVERT_NAMES = { i[0]:i[1] for i in ADVERT_CHOICES }
 ADVERT_TYPES = ( item[0] for item in ADVERT_CHOICES )
+
+SPECIAL_ADVERT_TYPES = ['gold']
+PUBLIC_ADVERT_TYPES = list(filter(lambda x: x not in SPECIAL_ADVERT_TYPES,ADVERT_TYPES))
 
 ADVERT_COLORS = {
 	'super': 'red',

@@ -25,6 +25,10 @@ def makrdown_format(text):
 def define(val=None):
   return val
 
+@register.filter()
+def lookup(value, arg):
+    return value.get(arg)
+
 # ADVERT_HIERARCHY 
 
 @register.simple_tag
