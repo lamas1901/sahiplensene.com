@@ -2,6 +2,8 @@ from pathlib import Path
 import os
 import configparser
 
+from . import *
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 INSTALLED_APPS = [
